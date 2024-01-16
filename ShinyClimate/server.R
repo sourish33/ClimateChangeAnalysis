@@ -40,7 +40,7 @@ function(input, output, session) {
       geom_point(size = 3) +
       labs(title = paste("Greenhouse Gas Emissions from 1970 to 2021 for", country),
            x = "Years",
-           y = "Giga-tons of CO2 equivalent") +
+           y = "Gigatons of CO2 equivalent") +
       theme_minimal()
   })
   

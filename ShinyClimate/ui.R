@@ -26,7 +26,9 @@ shinyUI(
                    sliderInput("yr_range", "Age:",
                                min = 1970, max = 2021, value = c(1970, 2021),
                                step = 1, sep = ""),
+                   tags$hr(),  # Add a horizontal rule for spacing
                    radioButtons("choice", "Select by:", choices = c("Countries", "Groups")),
+                   tags$hr(),  # Add a horizontal rule for spacing
                    uiOutput("dropdown")
                  ),
                  # GDP plot for country
