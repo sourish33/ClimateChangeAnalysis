@@ -26,7 +26,11 @@ shinyUI(
                    selectInput("country", 
                                label = "Select a country", 
                                choices = countries, 
-                               selected = countries[1])
+                               selected = countries[1]),
+                   selectInput("category", 
+                               label = "Select a category", 
+                               choices = categories, 
+                               selected = categories[1])
                  ),
                  # GDP plot for country
                  mainPanel(

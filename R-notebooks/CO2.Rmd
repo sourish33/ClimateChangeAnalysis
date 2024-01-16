@@ -8,7 +8,7 @@ library(tidyverse)
 ```
 
 ```{r}
-co2_df <- read_csv('../ShinyClimate/r/co2_cleaned.csv')
+co2_df <- read_csv('../ShinyClimate/data/co2_cleaned.csv')
 ```
 
 ```{r}
