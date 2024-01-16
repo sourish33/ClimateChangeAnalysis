@@ -23,14 +23,8 @@ shinyUI(
                "CO2 Production",
                sidebarLayout(
                  sidebarPanel(
-                   selectInput("country", 
-                               label = "Select a country", 
-                               choices = countries, 
-                               selected = countries[1]),
-                   selectInput("category", 
-                               label = "Select a category", 
-                               choices = categories, 
-                               selected = categories[1])
+                   radioButtons("choice", "Select by:", choices = c("Countries", "Groups")),
+                   uiOutput("dropdown")
                  ),
                  # GDP plot for country
                  mainPanel(

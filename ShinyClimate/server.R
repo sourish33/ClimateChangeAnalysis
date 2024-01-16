@@ -2,10 +2,21 @@ library(shiny)
 
 # Define server logic required to draw a histogram
 function(input, output, session) {
-  # Define selected_countries as a reactive function
+  # Define the choices based on radio button selection
+  choices <- reactive({
+    if (input$choice == "Countries") {
+      return(countries)
+    } else {
+      return(regions)
+    }
+  })
+  
+  output$dropdown <- renderUI({
+    selectInput("selection", "Select a country/group:", choices = choices())
+  })
   
   output$CO2Plot <- renderPlot({
-    country = input$country
+    country = input$selection
     years <- as.numeric(substring(names(co2_df)[7:ncol(co2_df)], 2))
     row1 <- co2_df |> filter(Country == country & CTS_Code == "ECNGDE" & Gas_Type == "Greenhouse gas")
     ghg_values <- as.numeric(row1[1, 7:ncol(co2_df)])/1000
@@ -24,7 +35,7 @@ function(input, output, session) {
       ggplot(aes(x = years, y = values, color = type)) +
       geom_line(size = 1) +
       geom_point(size = 3) +
-      labs(title = paste("Emissions from 1970 to 2021 for", country),
+      labs(title = paste("Greenhouse Gas Emissions from 1970 to 2021 for", country),
            x = "Years",
            y = "Giga-tons of CO2 equivalent") +
       theme_minimal()
