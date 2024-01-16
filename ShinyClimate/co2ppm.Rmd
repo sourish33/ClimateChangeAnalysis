@@ -13,9 +13,6 @@ co2_ppm <- read_csv('data/data_modern_ppm.csv')
 ```
 
 ```{r}
-co2_ppm |> head()
-```
-```{r}
 df <- read_csv('data/data_modern_ppm.csv')
 df |> 
   ggplot(aes(x = Numeric_date, y = Value)) +
@@ -34,7 +31,7 @@ df |>
   ggplot(aes(x = Numeric_date, y = Value)) +
   geom_line() +
   geom_point(size = 0.5) +
-  labs(title = paste("Atmospheric CO2 concentrations past 2000 years (ice-core data)",
+  labs(title = paste("Atmospheric CO2 concentrations over the past 2000 years"),
        x = "Years",
        y = "CO2 concentration (ppm)") +
   theme_minimal()

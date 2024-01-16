@@ -41,19 +41,17 @@ shinyUI(
                )
              ),
              tabPanel("CO2 Concentration", 
-                      # fluidRow(
-                      #   style = "display: flex; align-items: center; justify-content: center;",
-                      #   selectInput("year", 
-                      #                 label = "Select a Year", 
-                      #                 choices = years, 
-                      #                 selected = years[1])
-                      # 
-                      # ),
-                      # fluidRow(
-                      #   style = "margin-left: auto; margin-right: auto; max-width: 75%;",
-                      #     plotOutput("GDP_vs_LE_plot"),
-                      #     plotOutput("Log_GDP_vs_LE_plot")
-                      # )
+                      sidebarLayout(
+                        sidebarPanel(
+                          selectInput("timescale", "Choose a timescale", choices = c("Current", "2000 years", "800000 years"))
+                        ),
+                        # GDP plot for country
+                        mainPanel(
+                          tabsetPanel(
+                            tabPanel("Concentrations", plotOutput("conc_plot"))
+                          )
+                        )
+                      )
                       
                       ),
   )

@@ -11,6 +11,17 @@ function(input, output, session) {
     }
   })
   
+  ppm_data <- reactive({
+    if (input$timescale == "Current"){
+      return(ppm_df)
+    }
+    if (input$timescale == "2000 years"){
+      return(ppm_df_2k)
+    }
+    return(ppm_df_800k)
+  })
+  
+  
   output$dropdown <- renderUI({
     selectInput("selection", "Select a country/group:", choices = choices())
   })
@@ -41,6 +52,17 @@ function(input, output, session) {
       labs(title = paste("Greenhouse Gas Emissions from 1970 to 2021 for", country),
            x = "Years",
            y = "Gigatons of CO2 equivalent") +
+      theme_minimal()
+  })
+  
+  output$conc_plot <- renderPlot({
+    ppm_data() |>
+      ggplot(aes(x = Numeric_date, y = Value)) +
+      geom_line() +
+      geom_point(size = 0.5) +
+      labs(title = paste("Atmospheric CO2 concentrations"),
+           x = "Years",
+           y = "CO2 concentration (ppm)") +
       theme_minimal()
   })
   

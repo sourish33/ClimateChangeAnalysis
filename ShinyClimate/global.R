@@ -14,3 +14,6 @@ categories <-co2_df |>
   unique() |>
   sort()
 
+ppm_df <- read_csv('data/data_modern_ppm.csv')
+ppm_df_2k <- read_csv('data/data_2000.csv')
+ppm_df_800k <- read_csv('data/data_800k.csv')
