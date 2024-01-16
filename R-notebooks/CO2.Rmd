@@ -17,6 +17,8 @@ co2_df |> filter(Country == country & CTS_Code == "ECNGDE" & Gas_Type == "Greenh
 ```
 ```{r}
 country = "United States"
+y1 = 1990
+y2= 2018
 years <- as.numeric(substring(names(co2_df)[7:ncol(co2_df)], 2))
 row1 <- co2_df |> filter(Country == country & CTS_Code == "ECNGDE" & Gas_Type == "Greenhouse gas")
 ghg_values <- as.numeric(row1[1, 7:ncol(co2_df)])/1000
@@ -31,7 +33,8 @@ co2_data <- data.frame(years = years, values = co2_values, type = rep("CO2", len
 plot_data <- rbind(ghg_data, co2_data)
 
 # Plotting
-plot_data %>%
+plot_data |>
+  filter(years >= y1 & years <= y2) |>
   ggplot(aes(x = years, y = values, color = type)) +
   geom_line(size = 1) +
   geom_point(size = 3) +

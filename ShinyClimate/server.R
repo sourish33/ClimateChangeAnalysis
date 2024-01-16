@@ -17,6 +17,8 @@ function(input, output, session) {
   
   output$CO2Plot <- renderPlot({
     country = input$selection
+    y1 = input$yr_range[1]
+    y2= input$yr_range[2]
     years <- as.numeric(substring(names(co2_df)[7:ncol(co2_df)], 2))
     row1 <- co2_df |> filter(Country == country & CTS_Code == "ECNGDE" & Gas_Type == "Greenhouse gas")
     ghg_values <- as.numeric(row1[1, 7:ncol(co2_df)])/1000
@@ -31,7 +33,8 @@ function(input, output, session) {
     plot_data <- rbind(ghg_data, co2_data)
     
     # Plotting
-    plot_data %>%
+    plot_data |>
+      filter(years >= y1 & years <= y2) |>
       ggplot(aes(x = years, y = values, color = type)) +
       geom_line(size = 1) +
       geom_point(size = 3) +

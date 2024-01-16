@@ -23,13 +23,15 @@ shinyUI(
                "CO2 Production",
                sidebarLayout(
                  sidebarPanel(
+                   sliderInput("yr_range", "Age:",
+                               min = 1970, max = 2021, value = c(1970,2021)),
                    radioButtons("choice", "Select by:", choices = c("Countries", "Groups")),
                    uiOutput("dropdown")
                  ),
                  # GDP plot for country
                  mainPanel(
                    tabsetPanel(
-                     tabPanel("GDP", plotOutput("CO2Plot"))
+                     tabPanel("Emissions", plotOutput("CO2Plot"))
                    )
                    
                  )
