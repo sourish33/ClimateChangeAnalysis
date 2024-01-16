@@ -13,13 +13,4 @@ categories <-co2_df |>
   pull(Country) |>
   unique() |>
   sort()
-# 
-# continents <- gdp_le |>
-#   pull(Continent) |>
-#   unique() |>
-#   sort()
-# 
-# years <- gdp_le |>
-#   pull(Year) |>
-#   unique() |>
-#   sort()
+

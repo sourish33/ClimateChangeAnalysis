@@ -24,7 +24,8 @@ shinyUI(
                sidebarLayout(
                  sidebarPanel(
                    sliderInput("yr_range", "Age:",
-                               min = 1970, max = 2021, value = c(1970,2021)),
+                               min = 1970, max = 2021, value = c(1970, 2021),
+                               step = 1, sep = ""),
                    radioButtons("choice", "Select by:", choices = c("Countries", "Groups")),
                    uiOutput("dropdown")
                  ),
@@ -37,7 +38,7 @@ shinyUI(
                  )
                )
              ),
-             tabPanel("GDP vs LE", 
+             tabPanel("CO2 Concentration", 
                       # fluidRow(
                       #   style = "display: flex; align-items: center; justify-content: center;",
                       #   selectInput("year", 
