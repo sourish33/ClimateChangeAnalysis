@@ -7,7 +7,7 @@ function(input, output, session) {
     if (input$choice == "Countries") {
       return(countries)
     } else {
-      return(regions)
+      return(categories)
     }
   })
   

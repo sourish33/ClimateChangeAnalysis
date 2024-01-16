@@ -1,0 +1,52 @@
+---
+title: "co2_ppm"
+output: html_document
+date: "2024-01-16"
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+co2_ppm <- read_csv('data/data_modern_ppm.csv')
+```
+
+```{r}
+co2_ppm |> head()
+```
+```{r}
+df <- read_csv('data/data_modern_ppm.csv')
+df |> 
+  ggplot(aes(x = Numeric_date, y = Value)) +
+  geom_line() +
+  geom_point(size = 0.5) +
+  labs(title = paste("Atmospheric CO2 concentrations from 1958-2023"),
+       x = "Years",
+       y = "CO2 concentration (ppm)") +
+  theme_minimal()
+```
+
+
+```{r}
+df <- read_csv('data/data_2000.csv')
+df |> 
+  ggplot(aes(x = Numeric_date, y = Value)) +
+  geom_line() +
+  geom_point(size = 0.5) +
+  labs(title = paste("Atmospheric CO2 concentrations past 2000 years (ice-core data)",
+       x = "Years",
+       y = "CO2 concentration (ppm)") +
+  theme_minimal()
+```
+```{r}
+df <- read_csv('data/data_800k.csv')
+df |> 
+  ggplot(aes(x = Numeric_date, y = Value)) +
+  geom_line() +
+  geom_point(size = 0.5) +
+  labs(title = paste("Atmospheric CO2 concentrations past 800K years (Ice-core data"),
+       x = "Age (thousands of years)",
+       y = "CO2 concentration (ppm)") +
+  theme_minimal()
+```
