@@ -13,12 +13,12 @@ function(input, output, session) {
   
   ppm_data <- reactive({
     if (input$timescale == "Current"){
-      return(list(data = ppm_df, title = "from 1958-present"))
+      return(list(data = ppm_df, title_fragment = "from 1958-present", xlabel = "Year"))
     }
     if (input$timescale == "2000 years"){
-      return(list(data = ppm_df_2k, title = "over 2000 years"))
+      return(list(data = ppm_df_2k, title_fragment = "over 2000 years", xlabel = "Year"))
     }
-    return(list(data = ppm_df_800k, title = "over 800K years"))
+    return(list(data = ppm_df_800k, title_fragment = "over 800K years", xlabel = "Thousands of years before today"))
   })
   
   
@@ -57,13 +57,14 @@ function(input, output, session) {
   
   output$conc_plot <- renderPlot({
     df <- ppm_data()$data
-    title_fragment <-ppm_data()$title 
+    title_fragment <-ppm_data()$title_fragment
+    xlabel <- ppm_data()$xlabel
     df |>
       ggplot(aes(x = Numeric_date, y = Value)) +
       geom_line() +
       geom_point(size = 0.5) +
       labs(title = paste("Atmospheric CO2 concentrations", title_fragment),
-           x = "Years",
+           x = xlabel,
            y = "CO2 concentration (ppm)") +
       theme_minimal()
   })
