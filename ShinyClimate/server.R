@@ -13,12 +13,12 @@ function(input, output, session) {
   
   ppm_data <- reactive({
     if (input$timescale == "Current"){
-      return(ppm_df)
+      return(list(data = ppm_df, title = "from 1958-present"))
     }
     if (input$timescale == "2000 years"){
-      return(ppm_df_2k)
+      return(list(data = ppm_df_2k, title = "over 2000 years"))
     }
-    return(ppm_df_800k)
+    return(list(data = ppm_df_800k, title = "over 800K years"))
   })
   
   
@@ -56,14 +56,28 @@ function(input, output, session) {
   })
   
   output$conc_plot <- renderPlot({
-    ppm_data() |>
+    df <- ppm_data()$data
+    title_fragment <-ppm_data()$title 
+    df |>
       ggplot(aes(x = Numeric_date, y = Value)) +
       geom_line() +
       geom_point(size = 0.5) +
-      labs(title = paste("Atmospheric CO2 concentrations"),
+      labs(title = paste("Atmospheric CO2 concentrations", title_fragment),
            x = "Years",
            y = "CO2 concentration (ppm)") +
       theme_minimal()
+  })
+  
+  output$top_emitter_plot <- renderPlot({
+    co2_df |> 
+      filter(ISO2 != "ZZ" & CTS_Code == "ECNGDE" & Gas_Type == "Greenhouse gas") |>
+      arrange(desc(F1970)) |> 
+      slice(1:5) |>
+      ggplot(aes(x = reorder(Country, -F1970), y = F1970)) +
+      geom_bar(stat = "identity", fill = "skyblue") +
+      labs(title = "Top 10 GH gas Emitters",
+           x = "Top Greenhouse gas Emitters for 2021",
+           y = "Country")
   })
   
 

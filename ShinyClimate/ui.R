@@ -40,6 +40,22 @@ shinyUI(
                  )
                )
              ),
+             tabPanel("Top Emitters", 
+                      sidebarLayout(
+                        sidebarPanel(
+                          sliderInput("integer", "Year:",
+                                      min = 1970, max = 2021,
+                                      value = 2021, sep = ""),
+                        ),
+                        # GDP plot for country
+                        mainPanel(
+                          tabsetPanel(
+                            tabPanel("Top 5 Emitters", plotOutput("top_emitter_plot"))
+                          )
+                        )
+                      )
+                      
+             ),
              tabPanel("CO2 Concentration", 
                       sidebarLayout(
                         sidebarPanel(
