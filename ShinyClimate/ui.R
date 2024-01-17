@@ -45,7 +45,9 @@ shinyUI(
                         sidebarPanel(
                           sliderInput("year", "Year:",
                                       min = 1970, max = 2021,
-                                      value = 2021, sep = ""),
+                                      value = 1970, sep = "", step=1,
+                                      animate =
+                                        animationOptions(interval = 300, loop = FALSE)),
                         ),
                         # GDP plot for country
                         mainPanel(
