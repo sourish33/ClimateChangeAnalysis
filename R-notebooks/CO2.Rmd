@@ -66,3 +66,15 @@ co2_df |>
        y = "Country")
 ```
 
+```{r}
+yr <- "F2020"
+co2_df |> 
+  filter(ISO2 != "ZZ" & CTS_Code == "ECNGDE" & Gas_Type == "Greenhouse gas") |>
+  arrange(desc(!!sym(yr))) |>  
+  slice(1:5) |>
+  ggplot(aes(x = reorder(Country, desc(!!sym(yr))), y = !!sym(yr))) +  
+  geom_bar(stat = "identity", fill = "skyblue") +
+  labs(title = paste("Top 5 GH Gas Emitters in", yr),  # Corrected title
+       x = "Country",
+       y = yr)
+```

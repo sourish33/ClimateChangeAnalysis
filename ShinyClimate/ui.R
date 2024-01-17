@@ -43,7 +43,7 @@ shinyUI(
              tabPanel("Top Emitters", 
                       sidebarLayout(
                         sidebarPanel(
-                          sliderInput("integer", "Year:",
+                          sliderInput("year", "Year:",
                                       min = 1970, max = 2021,
                                       value = 2021, sep = ""),
                         ),

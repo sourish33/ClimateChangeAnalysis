@@ -70,15 +70,16 @@ function(input, output, session) {
   })
   
   output$top_emitter_plot <- renderPlot({
+    yr <- paste("F",as.character(input$year), sep="")
     co2_df |> 
       filter(ISO2 != "ZZ" & CTS_Code == "ECNGDE" & Gas_Type == "Greenhouse gas") |>
-      arrange(desc(F1970)) |> 
+      arrange(desc(!!sym(yr))) |>  
       slice(1:5) |>
-      ggplot(aes(x = reorder(Country, -F1970), y = F1970)) +
+      ggplot(aes(x = reorder(Country, desc(!!sym(yr))), y = !!sym(yr))) +  
       geom_bar(stat = "identity", fill = "skyblue") +
-      labs(title = "Top 10 GH gas Emitters",
-           x = "Top Greenhouse gas Emitters for 2021",
-           y = "Country")
+      labs(title = paste("Top 5 GH Gas Emitters in", yr),  # Corrected title
+           x = "Country",
+           y = yr)
   })
   
 
