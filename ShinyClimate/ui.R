@@ -18,12 +18,12 @@ selected_countries = reactive({
 
 # Define UI for application that draws a histogram
 shinyUI(
-  navbarPage("CO2 Dashboard",
+  navbarPage("Greenhouse Gas Dashboard",
              tabPanel(
-               "CO2 Production",
+               "Production",
                sidebarLayout(
                  sidebarPanel(
-                   sliderInput("yr_range", "Age:",
+                   sliderInput("yr_range", "Period:",
                                min = 1970, max = 2021, value = c(1970, 2021),
                                step = 1, sep = ""),
                    tags$hr(),  # Add a horizontal rule for spacing
