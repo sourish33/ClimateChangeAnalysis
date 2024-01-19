@@ -47,9 +47,8 @@ shinyUI(
                                       min = 1970, max = 2021,
                                       value = 1970, sep = "", step=1,
                                       animate =
-                                        animationOptions(interval = 300, loop = FALSE)),
+                                        animationOptions(interval = 500, loop = FALSE)),
                         ),
-                        # GDP plot for country
                         mainPanel(
                           tabsetPanel(
                             tabPanel("Top 5 Emitters", plotOutput("top_emitter_plot"))

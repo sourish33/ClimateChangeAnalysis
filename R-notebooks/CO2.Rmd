@@ -57,7 +57,7 @@ ghg <-co2_df |>
 ```{r}
 co2_df |> 
   filter(ISO2 != "ZZ" & CTS_Code == "ECNGDE" & Gas_Type == "Greenhouse gas") |>
-  arrange(desc(F1970)) |> 
+  arrange(desc(F2021)) |> 
   slice(1:5) |>
   ggplot(aes(x = reorder(Country, -F1970), y = F1970)) +
   geom_bar(stat = "identity", fill = "skyblue") +

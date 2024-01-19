@@ -1,2 +1,2 @@
-regions <-co2_df |>
-  filter(ISO2 == 'ZZ')
+co2_df |>
+  arrange()

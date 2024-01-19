@@ -77,9 +77,10 @@ function(input, output, session) {
       slice(1:5) |>
       ggplot(aes(x = reorder(Country, desc(!!sym(yr))), y = !!sym(yr))) +  
       geom_bar(stat = "identity", fill = "skyblue") +
-      labs(title = paste("Top 5 GH Gas Emitters in", yr),  # Corrected title
+      labs(title = paste("Top 5 GH Gas Emitters in", input$year),  # Corrected title
            x = "Country",
-           y = yr)
+           y = input$year) +
+      scale_y_continuous(limits = c(0, 15200))
   })
   
 
