@@ -31,8 +31,8 @@ function(input, output, session) {
   
   output$CO2Plot <- renderPlot({
     country = input$selection
-    y1 = input$yr_range[1]
-    y2= input$yr_range[2]
+    y1 = 1970
+    y2= 2021
     years <- as.numeric(substring(names(co2_df)[7:ncol(co2_df)], 2))
     row1 <- co2_df |> filter(Country == country & CTS_Code == "ECNGDE" & Gas_Type == "Greenhouse gas")
     ghg_values <- as.numeric(row1[1, 7:ncol(co2_df)])/1000
@@ -78,13 +78,15 @@ function(input, output, session) {
       filter(ISO2 != "ZZ" & CTS_Code == "ECNGDE" & Gas_Type == "Greenhouse gas") |>
       arrange(desc(!!sym(yr))) |>  
       slice(1:10) |>
-      ggplot(aes(x = reorder(Country, desc(!!sym(yr))), y = !!sym(yr))) +  
+      ggplot(aes(x = reorder(Country, desc(!!sym(yr))), y = !!sym(yr)/1000)) +  
       geom_bar(stat = "identity", fill = "skyblue") +
-      labs(title = paste("Top 5 GH Gas Emitters in", input$year),  # Corrected title
+      labs(title = paste("Top 10 Greenhouse Gas Emitters in", input$year),
            x = "Country",
-           y = input$year) +
-      scale_y_continuous(limits = c(0, 15200)) + 
-      theme(axis.text.x = element_text(size = 10, angle = 45, hjust = 1))
+           y = "Gigatons of CO2 equivalent") +
+      scale_y_continuous(limits = c(0, 15.2)) + 
+      theme(axis.text.x = element_text(size = 10, angle = 45, hjust = 1, face = "bold"),  # X-axis labels bold
+            axis.text.y = element_text(size = 10, face = "bold"))  # Y-axis labels bold
+    
   })
   
 

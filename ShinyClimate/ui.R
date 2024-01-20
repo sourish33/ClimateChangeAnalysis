@@ -62,24 +62,27 @@ body <- dashboardBody(tabItems(
                            selected = "Current"
                          )),
                          # GDP plot for country
-                         mainPanel(tabsetPanel(tabPanel(
-                           "Concentrations", plotOutput("conc_plot")
-                         )))
+                         mainPanel(
+                        box(
+                          width=12,
+                          plotOutput("conc_plot")
+                        )
+                         )
                        )),
               tabPanel("Production",
                        sidebarLayout(
                          sidebarPanel(
-                           sliderInput(
-                             "yr_range",
-                             "Period:",
-                             min = 1970,
-                             max = 2021,
-                             value = c(1970, 2021),
-                             step = 1,
-                             sep = ""
-                           ),
-                           tags$hr(),
-                           # Add a horizontal rule for spacing
+                           # sliderInput(
+                           #   "yr_range",
+                           #   "Period:",
+                           #   min = 1970,
+                           #   max = 2021,
+                           #   value = c(1970, 2021),
+                           #   step = 1,
+                           #   sep = ""
+                           # ),
+                           # tags$hr(),
+                           # # Add a horizontal rule for spacing
                            radioButtons(
                              "choice",
                              "Select by:",
@@ -91,14 +94,19 @@ body <- dashboardBody(tabItems(
                            uiOutput("dropdown")
                          ),
                          # GDP plot for country
-                         mainPanel(tabsetPanel(tabPanel(
-                           "Emissions", plotOutput("CO2Plot")
-                         )))
+                         mainPanel(
+                           box(
+                             width = 12,
+                             plotOutput("CO2Plot")
+                           )
+
+                         )
                        )),
                tabPanel("Top Emitters",
                         fluidRow(
-                          tabsetPanel(
-                            tabPanel("Top 5 Emitters", plotOutput("top_emitter_plot"))
+                          box(
+                            width=12,
+                            plotOutput("top_emitter_plot")
                           )
                         ),
                         fluidRow(
