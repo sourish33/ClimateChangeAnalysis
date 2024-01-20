@@ -120,5 +120,16 @@ function(input, output, session) {
   }
   )
   
+  output$temperature_plot <- renderPlot({
+    country <- input$temp_countries
+    temps |>
+      ggplot(aes(x = Year, y = !!sym(country), fill = !!sym(country))) +
+      geom_bar(stat = "identity") +
+      scale_fill_gradient(low = "blue", high = "red") +  # Adjust the color scale
+      labs(x = "Year", y = "Value", title = paste("Mean Temperature Change: ", country)) +
+      theme_classic()
+  })
+  
+  
   
 }

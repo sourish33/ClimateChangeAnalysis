@@ -23,13 +23,6 @@ selected_countries = reactive({
 header <- dashboardHeader(title = "Climate Change Dashboard",
                           titleWidth = 350)
 
-# sidebar <-dashboardSidebar(
-#   sidebarMenu(
-#     menuItem("CO2", tabName = "co2", icon = icon("dashboard")),
-#     menuItem("Temperature", tabName = "temperature", icon = icon("dashboard")),
-#     menuItem("Oceans", tabName = "oceans", icon = icon("dashboard")),
-#   )
-# )
 sidebar <- dashboardSidebar(sidebarMenu(
   menuItem("CO2", tabName = "co2", icon = icon("dashboard")),
   menuItem(
@@ -44,11 +37,11 @@ body <- dashboardBody(
   ### changing theme
   shinyDashboardThemes(
     # theme = "blue_gradient"
-    # theme = "poor_mans_flatly"
+    theme = "poor_mans_flatly"
     # theme = "flat_red"
     # theme = "grey_light"
     # theme = "onenote"
-    theme = "purple_gradient"
+    # theme = "purple_gradient"
   ),
   tags$head(tags$style(type='text/css', ".slider-animate-button { font-size: 20pt !important; }")),
   tabItems(
