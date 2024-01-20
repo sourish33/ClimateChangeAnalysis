@@ -52,100 +52,134 @@ body <- dashboardBody(
   ),
   tags$head(tags$style(type='text/css', ".slider-animate-button { font-size: 20pt !important; }")),
   tabItems(
-  # First tab content
-  tabItem(tabName = "co2",
-          fluidRow(
+    # First tab content
+    tabItem(tabName = "co2",
+            fluidRow(
+              box(
+                width = 12,
+                title = 'Carbon Dioxide Dashboard',
+                status = 'primary',
+                solidHeader = TRUE,
+              )
+            ),
+            fluidRow(
+              tabBox(
+                id = "tabset_co2",
+                width = 12,
+                tabPanel("Concentrations",
+                         fluidRow(
+                           column(6,
+                                  infoBoxOutput("progressBox", width="100%")
+                           ),
+                           column(6,
+                                  selectInput(
+                                    "timescale",
+                                    "Choose a timescale",
+                                    choices = c("Current", "2000 years", "800000 years"),
+                                    selected = "Current",
+                                    width = "100%"
+                                  )
+                           )
+                         ),
+                         fluidRow(
+                           box(
+                             width = 12,
+                             plotOutput("conc_plot")
+                           )
+                         )
+                ),
+                tabPanel("Production",
+                         sidebarLayout(
+                           sidebarPanel(
+                             radioButtons(
+                               "choice",
+                               "Select by:",
+                               choices = c("Groups", "Countries"),
+                               selected = "Groups"
+                             ),
+                             tags$hr(),
+                             # Add a horizontal rule for spacing
+                             uiOutput("dropdown")
+                           ),
+                           # GDP plot for country
+                           mainPanel(
+                             box(
+                               width = 12,
+                               plotOutput("CO2Plot")
+                             )
+                             
+                           )
+                         )),
+                tabPanel("Top Emitters",
+                         fluidRow(
+                           column(
+                             4,
+                             infoBox("Total", "51 Gigatons", icon = icon("industry"), width = "100%"),
+                           ),
+                           column(
+                             8,
+                             sliderInput("year", "Year:",
+                                         min = 1970, max = 2021,
+                                         value = 1970, sep = "", step = 1,
+                                         animate = animationOptions(interval = 500, loop = FALSE),
+                                         width = "100%" 
+                             ),
+                           )
+                         ),
+                         fluidRow(
+                           box(
+                             width = 12,
+                             plotOutput("top_emitter_plot")
+                           )
+                         )
+                         
+                ),
+                
+              )
+            )),
+    
+    # Second tab content
+    tabItem(tabName = "temperature",
+            fluidRow(
+              box(
+                width = 12,
+                title = 'Temperature Dashboard',
+                status = 'primary',
+                solidHeader = TRUE,
+              )
+            ),
+            fluidRow(
+              tabBox(
+                id="tabset_temp",
+                width=12,
+                tabPanel("Global Temperature Anomaly",
+                         fluidRow(
+                           infoBox("Average Anomaly", "0.89 C | 1.6 F", icon = icon("industry"), width = "60%"),
+                         ),
+                         fluidRow(
+                           box(
+                             width = 12,
+                             plotOutput("temperature_plot")
+                           )
+                         )
+                ),
+                
+                
+              )
+            )
+            
+    ),
+    
+    # Third tab content
+    tabItem(tabName = "oceans",
             box(
               width = 12,
-              title = 'Carbon Dioxide Dashboard',
+              title = 'Sea level Dashboard',
               status = 'primary',
               solidHeader = TRUE,
             )
-          ),
-          fluidRow(
-            tabBox(
-              id = "tabset1",
-              width = 12,
-              tabPanel("Concentrations",
-                       fluidRow(
-                         column(6,
-                                infoBoxOutput("progressBox", width="100%")
-                         ),
-                         column(6,
-                                selectInput(
-                                  "timescale",
-                                  "Choose a timescale",
-                                  choices = c("Current", "2000 years", "800000 years"),
-                                  selected = "Current",
-                                  width = "100%"
-                                )
-                         )
-                       ),
-                       fluidRow(
-                         box(
-                           width = 12,
-                           plotOutput("conc_plot")
-                         )
-                       )
-              ),
-              tabPanel("Production",
-                       sidebarLayout(
-                         sidebarPanel(
-                           radioButtons(
-                             "choice",
-                             "Select by:",
-                             choices = c("Groups", "Countries"),
-                             selected = "Groups"
-                           ),
-                           tags$hr(),
-                           # Add a horizontal rule for spacing
-                           uiOutput("dropdown")
-                         ),
-                         # GDP plot for country
-                         mainPanel(
-                           box(
-                             width = 12,
-                             plotOutput("CO2Plot")
-                           )
-                           
-                         )
-                       )),
-              tabPanel("Top Emitters",
-                       fluidRow(
-                         column(
-                           4,
-                           infoBox("Total", "50 Gigaton", icon = icon("industry"), width = "100%"),
-                         ),
-                         column(
-                           8,
-                           sliderInput("year", "Year:",
-                                       min = 1970, max = 2021,
-                                       value = 1970, sep = "", step = 1,
-                                       animate = animationOptions(interval = 500, loop = FALSE),
-                                       width = "100%" 
-                                       ),
-                         )
-                       ),
-                       fluidRow(
-                         box(
-                           width = 12,
-                           plotOutput("top_emitter_plot")
-                         )
-                       )
-
-              ),
-              
-            )
-          )),
-  
-  # Second tab content
-  tabItem(tabName = "temperature",
-          h2("Temperature")),
-  
-  # Third tab content
-  tabItem(tabName = "oceans",
-          h2("Oceans"))
-))
+    )
+  ))
 
 dashboardPage(header,
               sidebar,

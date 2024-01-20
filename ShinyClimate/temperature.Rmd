@@ -10,10 +10,25 @@ library(tidyverse)
 
 ```{r}
 temps <- read_csv('../ShinyClimate/data/temperature.csv')
-temps <- temps |> select (-c(...1))
 ```
 
 ```{r}
-
+temps |>
+ggplot(aes(x = Year, y = World, fill = World)) +
+  geom_bar(stat = "identity") +
+  scale_fill_gradient(low = "blue", high = "red") +  # Adjust the color scale
+  labs(x = "Year", y = "Value", title = "Mean Temperature Change") +
+  theme_classic()
 ```
+
+```{r}
+anomalies <- read_csv('../ShinyClimate/data/LandOceanTemperatureIndex.csv')
+anomalies |> ggplot(aes(x = Year)) +
+  geom_line(aes(y = No_smoothing), color = "blue", linetype = "solid") +
+  geom_point(aes(y = No_smoothing), color = "blue", size = 2) +
+  geom_line(aes(y = Lowess), color = "red", linetype = "solid") +
+  labs(x = "Year", y = "Values") +
+  theme_classic()
+```
+
 

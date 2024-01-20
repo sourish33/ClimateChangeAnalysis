@@ -56,7 +56,7 @@ function(input, output, session) {
       labs(title = paste("Greenhouse Gas Emissions from 1970 to 2021 for", country),
            x = "Years",
            y = "Gigatons of CO2 equivalent") +
-      theme_minimal()
+      theme_classic()
   })
   
   output$conc_plot <- renderPlot({
@@ -70,7 +70,7 @@ function(input, output, session) {
       labs(title = paste("Atmospheric CO2 concentrations", title_fragment),
            x = xlabel,
            y = "CO2 concentration (ppm)") +
-      theme_minimal()
+      theme_classic()
   })
   
   output$top_emitter_plot <- renderPlot({
@@ -88,6 +88,7 @@ function(input, output, session) {
            x = "Country",
            y = "Gigatons of CO2 equivalent") +
       scale_y_continuous(limits = c(0, 15.2)) + 
+      theme_classic() +
       theme(axis.text.x = element_text(size = 10, angle = 45, hjust = 1, face = "bold"),  # X-axis labels bold
             axis.text.y = element_text(size = 10, face = "bold")) + # Y-axis labels bold
       annotate("text", x = Inf, y = Inf, label = paste("World Total Emissions in", input$year, ":", total_emissions, "Gigatons"),
@@ -102,6 +103,20 @@ function(input, output, session) {
       subtitle = "Source: NASA"
     )
   })
+  
+  output$temperature_plot <- renderPlot(
+    anomalies |> ggplot(aes(x = Year)) +
+      geom_line(aes(y = No_smoothing, color = "Annual Mean"), linetype = "solid") +
+      geom_point(aes(y = No_smoothing, color = "Annual Mean"), size = 2) +
+      geom_line(aes(y = Lowess, color = "Lowess"), linetype = "solid") +
+      labs(title = "Global Temperature Index", x = "Year", y = "Values") +
+      scale_color_manual(values = c("Annual Mean" = "blue", "Lowess" = "red")) +
+      theme_classic() +
+      theme(
+        legend.position = c(0.2, 0.9),  
+        legend.background = element_rect(color = "black", fill = "white")
+      )
+  )
   
 
 }
