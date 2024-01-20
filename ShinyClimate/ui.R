@@ -54,21 +54,39 @@ body <- dashboardBody(tabItems(
               id = "tabset1",
               width = 12,
               tabPanel("Concentrations",
-                       sidebarLayout(
-                         sidebarPanel(selectInput(
-                           "timescale",
-                           "Choose a timescale",
-                           choices = c("Current", "2000 years", "800000 years"),
-                           selected = "Current"
-                         )),
-                         # GDP plot for country
-                         mainPanel(
-                           box(
-                             width=12,
-                             plotOutput("conc_plot")
-                           )
+                       fluidRow(
+                         div(style = "margin: auto; width: 20%",
+                             selectInput(
+                               "timescale",
+                               "Choose a timescale",
+                               choices = c("Current", "2000 years", "800000 years"),
+                               selected = "Current",
+                               width="100%"
+                             ),
                          )
-                       )),
+                       ),
+                       fluidRow(
+                         box(
+                           width = 12,
+                           plotOutput("conc_plot")
+                         )
+                       )
+                       # sidebarLayout(
+                       #   sidebarPanel(selectInput(
+                       #     "timescale",
+                       #     "Choose a timescale",
+                       #     choices = c("Current", "2000 years", "800000 years"),
+                       #     selected = "Current"
+                       #   )),
+                       #   # GDP plot for country
+                       #   mainPanel(
+                       #     box(
+                       #       width=12,
+                       #       plotOutput("conc_plot")
+                       #     )
+                       #   )
+                       # )
+                       ),
               tabPanel("Production",
                        sidebarLayout(
                          sidebarPanel(
