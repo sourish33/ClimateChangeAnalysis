@@ -96,9 +96,10 @@ function(input, output, session) {
   
   output$progressBox <- renderInfoBox({
     infoBox(
-      "Concentration", paste("422 ppm"), icon = icon("cloud"),
-      color = "yellow", 
+      "Current CO2 Concentration", paste("422 ppm"), icon = icon("cloud"),
+      color = "light-blue", 
       fill = TRUE,
+      subtitle = "Source: NASA"
     )
   })
   

@@ -57,18 +57,17 @@ body <- dashboardBody(
               width = 12,
               tabPanel("Concentrations",
                        fluidRow(
-                         # Dynamic infoBoxes
-                         infoBoxOutput("progressBox", width = 6),
-                       ),
-                       fluidRow(
-                         div(style = "margin: auto; width: 20%",
-                             selectInput(
-                               "timescale",
-                               "Choose a timescale",
-                               choices = c("Current", "2000 years", "800000 years"),
-                               selected = "Current",
-                               width="100%"
-                             ),
+                         column(6,
+                                infoBoxOutput("progressBox", width="100%")
+                         ),
+                         column(6,
+                                selectInput(
+                                  "timescale",
+                                  "Choose a timescale",
+                                  choices = c("Current", "2000 years", "800000 years"),
+                                  selected = "Current",
+                                  width = "100%"
+                                )
                          )
                        ),
                        fluidRow(
@@ -77,7 +76,7 @@ body <- dashboardBody(
                            plotOutput("conc_plot")
                          )
                        )
-                       ),
+              ),
               tabPanel("Production",
                        sidebarLayout(
                          sidebarPanel(
