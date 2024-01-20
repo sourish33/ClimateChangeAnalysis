@@ -38,7 +38,9 @@ sidebar <- dashboardSidebar(sidebarMenu(
   menuItem("Oceans", tabName = "oceans", icon = icon("dashboard"))
 ))
 
-body <- dashboardBody(tabItems(
+body <- dashboardBody(
+  tags$head(tags$style(type='text/css', ".slider-animate-button { font-size: 20pt !important; }")),
+  tabItems(
   # First tab content
   tabItem(tabName = "co2",
           fluidRow(
@@ -67,25 +69,11 @@ body <- dashboardBody(tabItems(
                        ),
                        fluidRow(
                          box(
+                           background = "maroon",
                            width = 12,
                            plotOutput("conc_plot")
                          )
                        )
-                       # sidebarLayout(
-                       #   sidebarPanel(selectInput(
-                       #     "timescale",
-                       #     "Choose a timescale",
-                       #     choices = c("Current", "2000 years", "800000 years"),
-                       #     selected = "Current"
-                       #   )),
-                       #   # GDP plot for country
-                       #   mainPanel(
-                       #     box(
-                       #       width=12,
-                       #       plotOutput("conc_plot")
-                       #     )
-                       #   )
-                       # )
                        ),
               tabPanel("Production",
                        sidebarLayout(

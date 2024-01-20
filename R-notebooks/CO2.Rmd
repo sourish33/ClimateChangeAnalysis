@@ -79,3 +79,18 @@ co2_df |>
        y = yr)+
 theme(axis.text.x = element_text(size = 10, angle = 45, hjust = 1))
 ```
+
+
+```{r}
+yr <- "F1975"
+
+totem <- co2_df |> filter(Country == "World" & CTS_Code == "ECNGDE" & Gas_Type == "Greenhouse gas") |> pull(!!sym(yr))
+print(totem)
+
+total_emissions <- co2_df |> 
+  drop_na()|>
+  filter(ISO2 != "ZZ" & CTS_Code == "ECNGDE" & Gas_Type == "Greenhouse gas") |>
+  summarise(sum_emissions = sum(!!sym(yr)))
+print(total_emissions)
+```
+

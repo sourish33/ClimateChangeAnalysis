@@ -74,7 +74,10 @@ function(input, output, session) {
   
   output$top_emitter_plot <- renderPlot({
     yr <- paste("F",as.character(input$year), sep="")
+    total_emissions <- co2_df |> filter(Country == "World" & CTS_Code == "ECNGDE" & Gas_Type == "Greenhouse gas") |> pull(!!sym(yr))/1000
+    total_emissions <- round(total_emissions)
     co2_df |> 
+      drop_na()|>
       filter(ISO2 != "ZZ" & CTS_Code == "ECNGDE" & Gas_Type == "Greenhouse gas") |>
       arrange(desc(!!sym(yr))) |>  
       slice(1:10) |>
@@ -85,7 +88,9 @@ function(input, output, session) {
            y = "Gigatons of CO2 equivalent") +
       scale_y_continuous(limits = c(0, 15.2)) + 
       theme(axis.text.x = element_text(size = 10, angle = 45, hjust = 1, face = "bold"),  # X-axis labels bold
-            axis.text.y = element_text(size = 10, face = "bold"))  # Y-axis labels bold
+            axis.text.y = element_text(size = 10, face = "bold")) + # Y-axis labels bold
+      annotate("text", x = Inf, y = Inf, label = paste("World Total Emissions in", input$year, ":", total_emissions, "Gigatons"),
+               hjust = 1, vjust = 1, size = 6) 
     
   })
   
