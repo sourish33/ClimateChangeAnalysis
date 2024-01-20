@@ -104,7 +104,7 @@ function(input, output, session) {
     )
   })
   
-  output$temperature_plot <- renderPlot(
+  output$temp_anomaly_plot <- renderPlot({
     anomalies |> ggplot(aes(x = Year)) +
       geom_line(aes(y = No_smoothing, color = "Annual Mean"), linetype = "solid") +
       geom_point(aes(y = No_smoothing, color = "Annual Mean"), size = 2) +
@@ -117,7 +117,8 @@ function(input, output, session) {
         legend.background = element_rect(color = "black", fill = "white"),
         legend.title= element_blank()
       )
+  }
   )
   
-
+  
 }

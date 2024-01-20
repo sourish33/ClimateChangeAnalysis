@@ -47,3 +47,8 @@ df |>
        y = "CO2 concentration (ppm)") +
   theme_minimal()
 ```
+```{r}
+temp_countries <- temps |> colnames()
+temp_countries <- temp_countries[-1]
+```
+

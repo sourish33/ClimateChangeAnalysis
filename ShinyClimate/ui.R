@@ -152,9 +152,29 @@ body <- dashboardBody(
               tabBox(
                 id="tabset_temp",
                 width=12,
-                tabPanel("Latest Global Temperature Anomaly",
+                tabPanel("Temperature Anomalies",
                          fluidRow(
-                           infoBox("Average Anomaly", "0.89 °C | 1.6 °F", icon = icon("thermometer-three-quarters"), width = "60%"),
+                           infoBox("Latest Temperature Anomaly", "0.89 °C | 1.6 °F", icon = icon("thermometer-three-quarters"), width = "60%"),
+                         ),
+                         fluidRow(
+                           box(
+                             width = 12,
+                             plotOutput("temp_anomaly_plot")
+                           )
+                         )
+                ),
+                tabPanel("Mean Global Temperatures",
+                         fluidRow(
+                           column(
+                             8,
+                             offset = 4,
+                             selectInput(
+                               "temp_countries",
+                               "Choose a Country",
+                               choices = temp_countries,
+                               selected = "World",
+                             )
+                           )
                          ),
                          fluidRow(
                            box(
@@ -163,6 +183,7 @@ body <- dashboardBody(
                            )
                          )
                 ),
+                
                 
                 
               )

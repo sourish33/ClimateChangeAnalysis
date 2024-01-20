@@ -20,3 +20,5 @@ ppm_df_800k <- read_csv('data/data_800k.csv')
 
 temps <- read_csv('../ShinyClimate/data/temperature.csv')
 anomalies <- read_csv('../ShinyClimate/data/LandOceanTemperatureIndex.csv')
+temp_countries <- temps |> colnames()
+temp_countries <- temp_countries[-1]
