@@ -63,26 +63,15 @@ body <- dashboardBody(tabItems(
                          )),
                          # GDP plot for country
                          mainPanel(
-                        box(
-                          width=12,
-                          plotOutput("conc_plot")
-                        )
+                           box(
+                             width=12,
+                             plotOutput("conc_plot")
+                           )
                          )
                        )),
               tabPanel("Production",
                        sidebarLayout(
                          sidebarPanel(
-                           # sliderInput(
-                           #   "yr_range",
-                           #   "Period:",
-                           #   min = 1970,
-                           #   max = 2021,
-                           #   value = c(1970, 2021),
-                           #   step = 1,
-                           #   sep = ""
-                           # ),
-                           # tags$hr(),
-                           # # Add a horizontal rule for spacing
                            radioButtons(
                              "choice",
                              "Select by:",
@@ -99,35 +88,28 @@ body <- dashboardBody(tabItems(
                              width = 12,
                              plotOutput("CO2Plot")
                            )
-
+                           
                          )
                        )),
-               tabPanel("Top Emitters",
-                        fluidRow(
-                          box(
-                            width=12,
-                            plotOutput("top_emitter_plot")
-                          )
-                        ),
-                        fluidRow(
-                          column(
-                            12, 
-                            style="d-flex justify-content-center", 
-                                 box(
-                                   title = "Controls",
-                                   sliderInput("year", "Year:",
-                                               min = 1970, max = 2021,
-                                               value = 1970, sep = "", step=1,
-                                               animate =
-                                                 animationOptions(interval = 500, loop = FALSE)),
-                                 )
-                                 
-                                 )
+              tabPanel("Top Emitters",
+                       fluidRow(
+                         div(style = "margin: auto; width: 60%",
+                           sliderInput("year", "Year:",
+                                       min = 1970, max = 2021,
+                                       value = 1970, sep = "", step = 1,
+                                       animate = animationOptions(interval = 500, loop = FALSE),
+                                       width = "100%" 
+                                       ),
+                         )
+                       ),
+                       fluidRow(
+                         box(
+                           width = 12,
+                           plotOutput("top_emitter_plot")
+                         )
+                       )
 
-
-                        ),
-
-               ),
+              ),
               
             )
           )),
