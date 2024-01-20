@@ -8,6 +8,7 @@
 #
 
 library(shiny)
+library(shinydashboard)
 
 selected_countries = reactive({
   gdp_le |> 
@@ -16,60 +17,112 @@ selected_countries = reactive({
     unique() |>
     sort()})
 
-# Define UI for application that draws a histogram
-shinyUI(
-  navbarPage("Greenhouse Gas Dashboard",
-             tabPanel(
-               "Production",
-               sidebarLayout(
-                 sidebarPanel(
-                   sliderInput("yr_range", "Period:",
-                               min = 1970, max = 2021, value = c(1970, 2021),
-                               step = 1, sep = ""),
-                   tags$hr(),  # Add a horizontal rule for spacing
-                   radioButtons("choice", "Select by:", choices = c("Groups", "Countries")),
-                   tags$hr(),  # Add a horizontal rule for spacing
-                   uiOutput("dropdown")
-                 ),
-                 # GDP plot for country
-                 mainPanel(
-                   tabsetPanel(
-                     tabPanel("Emissions", plotOutput("CO2Plot"))
-                   )
-                   
-                 )
-               )
-             ),
-             tabPanel("Top Emitters", 
-                      sidebarLayout(
-                        sidebarPanel(
-                          sliderInput("year", "Year:",
-                                      min = 1970, max = 2021,
-                                      value = 1970, sep = "", step=1,
-                                      animate =
-                                        animationOptions(interval = 500, loop = FALSE)),
-                        ),
-                        mainPanel(
-                          tabsetPanel(
-                            tabPanel("Top 5 Emitters", plotOutput("top_emitter_plot"))
-                          )
-                        )
-                      )
-                      
-             ),
-             tabPanel("CO2 Concentration", 
-                      sidebarLayout(
-                        sidebarPanel(
-                          selectInput("timescale", "Choose a timescale", choices = c("Current", "2000 years", "800000 years"))
-                        ),
-                        # GDP plot for country
-                        mainPanel(
-                          tabsetPanel(
-                            tabPanel("Concentrations", plotOutput("conc_plot"))
-                          )
-                        )
-                      )
-                      
-                      ),
+header <- dashboardHeader(
+  title = "Climate Change Dashboard",
+  titleWidth=350
+  )
+
+# sidebar <-dashboardSidebar(
+#   sidebarMenu(
+#     menuItem("CO2", tabName = "co2", icon = icon("dashboard")),
+#     menuItem("Temperature", tabName = "temperature", icon = icon("dashboard")),
+#     menuItem("Oceans", tabName = "oceans", icon = icon("dashboard")),
+#   )
+# )
+sidebar <- dashboardSidebar(
+  sidebarMenu(
+    menuItem("CO2", tabName = "co2", icon = icon("dashboard")),
+    menuItem("Temperature", tabName = "temperature", icon = icon("dashboard")),
+    menuItem("Oceans", tabName = "oceans", icon = icon("dashboard"))
   )
 )
+
+body <-dashboardBody(
+  tabItems(
+    # First tab content
+    tabItem(tabName = "co2",
+            fluidRow(
+              box(
+                title = "Controls",
+                sliderInput("slider", "Number of observations:", 1, 100, 50)
+              )
+            )
+    ),
+    
+    # Second tab content
+    tabItem(tabName = "temperature",
+            h2("Temperature")
+    ),
+    
+    # Third tab content
+    tabItem(tabName = "oceans",
+            h2("Oceans")
+    )
+  )
+  
+)
+
+dashboardPage(
+  header,
+  sidebar,
+  body
+)
+
+
+# # Define UI for application that draws a histogram
+# shinyUI(
+#   navbarPage("Greenhouse Gas Dashboard",
+#              tabPanel(
+#                "Production",
+#                sidebarLayout(
+#                  sidebarPanel(
+#                    sliderInput("yr_range", "Period:",
+#                                min = 1970, max = 2021, value = c(1970, 2021),
+#                                step = 1, sep = ""),
+#                    tags$hr(),  # Add a horizontal rule for spacing
+#                    radioButtons("choice", "Select by:", choices = c("Groups", "Countries")),
+#                    tags$hr(),  # Add a horizontal rule for spacing
+#                    uiOutput("dropdown")
+#                  ),
+#                  # GDP plot for country
+#                  mainPanel(
+#                    tabsetPanel(
+#                      tabPanel("Emissions", plotOutput("CO2Plot"))
+#                    )
+#                    
+#                  )
+#                )
+#              ),
+#              tabPanel("Top Emitters", 
+#                       sidebarLayout(
+#                         sidebarPanel(
+#                           sliderInput("year", "Year:",
+#                                       min = 1970, max = 2021,
+#                                       value = 1970, sep = "", step=1,
+#                                       animate =
+#                                         animationOptions(interval = 500, loop = FALSE)),
+#                         ),
+#                         mainPanel(
+#                           tabsetPanel(
+#                             tabPanel("Top 5 Emitters", plotOutput("top_emitter_plot"))
+#                           )
+#                         )
+#                       )
+#                       
+#              ),
+#              tabPanel("CO2 Concentration", 
+#                       sidebarLayout(
+#                         sidebarPanel(
+#                           selectInput("timescale", "Choose a timescale", choices = c("Current", "2000 years", "800000 years"))
+#                         ),
+#                         # GDP plot for country
+#                         mainPanel(
+#                           tabsetPanel(
+#                             tabPanel("Concentrations", plotOutput("conc_plot"))
+#                           )
+#                         )
+#                       )
+#                       
+#                       ),
+#   )
+# )

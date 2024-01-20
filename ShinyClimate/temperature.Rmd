@@ -1,0 +1,19 @@
+---
+title: "temperature"
+output: html_document
+date: "2024-01-19"
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+temps <- read_csv('../ShinyClimate/data/temperature.csv')
+temps <- temps |> select (-c(...1))
+```
+
+```{r}
+
+```
+
