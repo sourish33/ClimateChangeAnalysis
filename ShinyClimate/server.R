@@ -108,13 +108,14 @@ function(input, output, session) {
     anomalies |> ggplot(aes(x = Year)) +
       geom_line(aes(y = No_smoothing, color = "Annual Mean"), linetype = "solid") +
       geom_point(aes(y = No_smoothing, color = "Annual Mean"), size = 2) +
-      geom_line(aes(y = Lowess, color = "Lowess"), linetype = "solid") +
+      geom_line(aes(y = Lowess, color = "Smoothed (Lowess)"), linetype = "solid") +
       labs(title = "Global Temperature Index", x = "Year", y = "Values") +
-      scale_color_manual(values = c("Annual Mean" = "blue", "Lowess" = "red")) +
+      scale_color_manual(values = c("Annual Mean" = "blue", "Smoothed (Lowess)" = "red")) +
       theme_classic() +
       theme(
         legend.position = c(0.2, 0.9),  
-        legend.background = element_rect(color = "black", fill = "white")
+        legend.background = element_rect(color = "black", fill = "white"),
+        legend.title= element_blank()
       )
   )
   

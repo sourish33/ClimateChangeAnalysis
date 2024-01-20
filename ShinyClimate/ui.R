@@ -114,7 +114,7 @@ body <- dashboardBody(
                          fluidRow(
                            column(
                              4,
-                             infoBox("Total", "51 Gigatons", icon = icon("industry"), width = "100%"),
+                             infoBox("Total", "51 Gigatons", icon = icon("smog"), width = "100%"),
                            ),
                            column(
                              8,
@@ -152,9 +152,9 @@ body <- dashboardBody(
               tabBox(
                 id="tabset_temp",
                 width=12,
-                tabPanel("Global Temperature Anomaly",
+                tabPanel("Latest Global Temperature Anomaly",
                          fluidRow(
-                           infoBox("Average Anomaly", "0.89 C | 1.6 F", icon = icon("industry"), width = "60%"),
+                           infoBox("Average Anomaly", "0.89 °C | 1.6 °F", icon = icon("thermometer-three-quarters"), width = "60%"),
                          ),
                          fluidRow(
                            box(
