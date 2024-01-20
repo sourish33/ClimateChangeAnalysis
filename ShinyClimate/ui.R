@@ -57,6 +57,10 @@ body <- dashboardBody(
               width = 12,
               tabPanel("Concentrations",
                        fluidRow(
+                         # Dynamic infoBoxes
+                         infoBoxOutput("progressBox", width = 6),
+                       ),
+                       fluidRow(
                          div(style = "margin: auto; width: 20%",
                              selectInput(
                                "timescale",
@@ -69,7 +73,6 @@ body <- dashboardBody(
                        ),
                        fluidRow(
                          box(
-                           background = "maroon",
                            width = 12,
                            plotOutput("conc_plot")
                          )
