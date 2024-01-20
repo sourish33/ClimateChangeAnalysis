@@ -77,13 +77,14 @@ function(input, output, session) {
     co2_df |> 
       filter(ISO2 != "ZZ" & CTS_Code == "ECNGDE" & Gas_Type == "Greenhouse gas") |>
       arrange(desc(!!sym(yr))) |>  
-      slice(1:5) |>
+      slice(1:10) |>
       ggplot(aes(x = reorder(Country, desc(!!sym(yr))), y = !!sym(yr))) +  
       geom_bar(stat = "identity", fill = "skyblue") +
       labs(title = paste("Top 5 GH Gas Emitters in", input$year),  # Corrected title
            x = "Country",
            y = input$year) +
-      scale_y_continuous(limits = c(0, 15200))
+      scale_y_continuous(limits = c(0, 15200)) + 
+      theme(axis.text.x = element_text(size = 10, angle = 45, hjust = 1))
   })
   
 

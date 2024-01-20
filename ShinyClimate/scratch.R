@@ -1,2 +1,3 @@
+
 co2_df |>
-  arrange()
+  filter(Country in)
