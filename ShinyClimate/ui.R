@@ -43,8 +43,37 @@ body <-dashboardBody(
     tabItem(tabName = "co2",
             fluidRow(
               box(
-                title = "Controls",
-                sliderInput("slider", "Number of observations:", 1, 100, 50)
+                width=12,
+                title='Carbon Dioxide Dashboard',
+                status='primary',
+                solidHeader=TRUE,
+              )
+            ),
+            fluidRow(
+              tabBox(
+                id = "tabset1",
+                width = 12,
+               tabPanel(
+                 "Production",
+                 sidebarLayout(
+                   sidebarPanel(
+                     sliderInput("yr_range", "Period:",
+                                 min = 1970, max = 2021, value = c(1970, 2021),
+                                 step = 1, sep = ""),
+                     tags$hr(),  # Add a horizontal rule for spacing
+                     radioButtons("choice", "Select by:", choices = c("Groups", "Countries"), selected = "Groups"),
+                     tags$hr(),  # Add a horizontal rule for spacing
+                     uiOutput("dropdown")
+                   ),
+                   # GDP plot for country
+                   mainPanel(
+                     tabsetPanel(
+                       tabPanel("Emissions", plotOutput("CO2Plot"))
+                     )
+
+                   )
+                 )
+               )
               )
             )
     ),
