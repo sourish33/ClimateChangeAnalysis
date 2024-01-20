@@ -5,9 +5,9 @@ function(input, output, session) {
   # Define the choices based on radio button selection
   choices <- reactive({
     if (input$choice == "Countries") {
-      return(countries)
+      return(list(options = countries, text = "Select a Country", selected = "United States"))
     } else {
-      return(categories)
+      return(list(options = categories, text = "Select a Group", selected = "World"))
     }
   })
   
@@ -23,7 +23,10 @@ function(input, output, session) {
   
   
   output$dropdown <- renderUI({
-    selectInput("selection", "Select a country/group:", choices = choices())
+    options = choices()$options
+    text = choices()$text
+    selected = choices()$selected
+    selectInput("selection", text, choices = options, selected = selected)
   })
   
   output$CO2Plot <- renderPlot({
