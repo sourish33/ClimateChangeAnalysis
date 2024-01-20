@@ -1,5 +1,6 @@
 library(shiny)
 
+
 # Define server logic required to draw a histogram
 function(input, output, session) {
   # Define the choices based on radio button selection
@@ -97,7 +98,6 @@ function(input, output, session) {
   output$progressBox <- renderInfoBox({
     infoBox(
       "Current CO2 Concentration", paste("422 ppm"), icon = icon("cloud"),
-      color = "light-blue", 
       fill = TRUE,
       subtitle = "Source: NASA"
     )

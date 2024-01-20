@@ -9,6 +9,8 @@
 
 library(shiny)
 library(shinydashboard)
+library(fontawesome)
+library(dashboardthemes)
 
 selected_countries = reactive({
   gdp_le |>
@@ -39,6 +41,15 @@ sidebar <- dashboardSidebar(sidebarMenu(
 ))
 
 body <- dashboardBody(
+  ### changing theme
+  shinyDashboardThemes(
+    # theme = "blue_gradient"
+    # theme = "poor_mans_flatly"
+    # theme = "flat_red"
+    # theme = "grey_light"
+    # theme = "onenote"
+    theme = "purple_gradient"
+  ),
   tags$head(tags$style(type='text/css', ".slider-animate-button { font-size: 20pt !important; }")),
   tabItems(
   # First tab content
@@ -101,7 +112,12 @@ body <- dashboardBody(
                        )),
               tabPanel("Top Emitters",
                        fluidRow(
-                         div(style = "margin: auto; width: 60%",
+                         column(
+                           4,
+                           infoBox("Total", "50 Gigaton", icon = icon("industry"), width = "100%"),
+                         ),
+                         column(
+                           8,
                            sliderInput("year", "Year:",
                                        min = 1970, max = 2021,
                                        value = 1970, sep = "", step = 1,
