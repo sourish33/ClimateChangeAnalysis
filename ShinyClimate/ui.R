@@ -231,7 +231,7 @@ body <- dashboardBody(
               )
             )
     )
-  )
+  ))
 
   
   dashboardPage(header,

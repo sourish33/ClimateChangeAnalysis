@@ -141,21 +141,23 @@ function(input, output, session) {
     temps |>
       ggplot(aes(x = Year, y = !!sym(country), fill = !!sym(country))) +
       geom_bar(stat = "identity") +
-      scale_fill_gradient(low = "blue", high = "red") +  # Adjust the color scale
+      scale_fill_gradient(low = "blue", high = "red") +  # Adjustinh the color scale
       labs(x = "Year", y = "Value", title = paste("Change in °C from 1951-1980 baseline: ", country)) +
       theme_classic()
   })
   
   output$all_sea_levels <- renderPlot({
-    which_sea = input$ocean
-    sealevels |> 
+    which_sea <- input$ocean
+    sealevels |>
       filter(Ocean == which_sea) |>
-      ggplot(aes(x = Date, y = Value, color = Value)) +
+      ggplot(aes(x = Decimal_Date, y = Value, color = Value)) +
       geom_line() +
       scale_color_gradient(low = "blue", high = "red") +  # Adjust the color scale
       labs(x = "Year", y = "Value", title = paste("Mean Sea Level:",which_sea)) +
       theme_classic()
   })
+
+  
   
   
   

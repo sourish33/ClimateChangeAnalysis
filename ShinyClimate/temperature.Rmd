@@ -37,14 +37,13 @@ temps$World[temps$Year == 2021]
 ```
 
 ```{r}
-which_sea = "Pacific Ocean"
-sealevels <-read_csv('../ShinyClimate/data/Change_in_Mean_Sea_Levels.csv') 
-sealevels |> 
-  filter(Ocean == which_sea) |>
-ggplot(aes(x = Date, y = Value, color = Value)) +
-  geom_line() +
-  scale_color_gradient(low = "blue", high = "red") +  # Adjust the color scale
-  labs(x = "Year", y = "Value", title = paste("Mean Sea Level:",which_sea)) +
-  theme_classic()
+    which_sea <- "World"
+    sealevels |> 
+      filter(Ocean == which_sea) |>
+      ggplot(aes(x = Decimal_Date, y = Value, color = Value)) +
+      geom_line() +
+      scale_color_gradient(low = "blue", high = "red") +  # Adjust the color scale
+      labs(x = "Year", y = "Value", title = paste("Mean Sea Level:",which_sea)) +
+      theme_classic()
 ```
 
