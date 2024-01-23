@@ -104,12 +104,14 @@ function(input, output, session) {
     )
   })
   
+
+  
   output$temp_anomaly_plot <- renderPlot({
     anomalies |> ggplot(aes(x = Year)) +
       geom_line(aes(y = No_smoothing, color = "Annual Mean"), linetype = "solid") +
       geom_point(aes(y = No_smoothing, color = "Annual Mean"), size = 2) +
       geom_line(aes(y = Lowess, color = "Smoothed (Lowess)"), linetype = "solid") +
-      labs(title = "Global Temperature Index", x = "Year", y = "Values") +
+      labs(title = "Global Land-Ocean Temperature Index", x = "Year", y = "Values") +
       scale_color_manual(values = c("Annual Mean" = "blue", "Smoothed (Lowess)" = "red")) +
       theme_classic() +
       theme(
@@ -120,13 +122,38 @@ function(input, output, session) {
   }
   )
   
+  
+  output$tempBox <- renderInfoBox({
+    country <- input$temp_countries
+    curtemp <- temps[temps$Year == 2021, country]
+    curtemp <- round(curtemp, digits=2)
+    
+    if (!is.na(curtemp) && length(curtemp) > 0) {
+      infoBox("Above Baseline (2021)", paste(curtemp, "°C"), icon = icon("thermometer-three-quarters"))
+    } else {
+      infoBox("Above Baseline", "Data not available", icon = icon("thermometer-three-quarters"))
+    }
+  })
+  
+  
   output$temperature_plot <- renderPlot({
     country <- input$temp_countries
     temps |>
       ggplot(aes(x = Year, y = !!sym(country), fill = !!sym(country))) +
       geom_bar(stat = "identity") +
       scale_fill_gradient(low = "blue", high = "red") +  # Adjust the color scale
-      labs(x = "Year", y = "Value", title = paste("Mean Temperature Change: ", country)) +
+      labs(x = "Year", y = "Value", title = paste("Change in °C from 1951-1980 baseline: ", country)) +
+      theme_classic()
+  })
+  
+  output$all_sea_levels <- renderPlot({
+    which_sea = input$ocean
+    sealevels |> 
+      filter(Ocean == which_sea) |>
+      ggplot(aes(x = Date, y = Value, color = Value)) +
+      geom_line() +
+      scale_color_gradient(low = "blue", high = "red") +  # Adjust the color scale
+      labs(x = "Year", y = "Value", title = paste("Mean Sea Level:",which_sea)) +
       theme_classic()
   })
   

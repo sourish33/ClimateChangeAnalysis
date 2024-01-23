@@ -32,16 +32,15 @@ sidebar <- dashboardSidebar(sidebarMenu(
   ),
   menuItem("Oceans", tabName = "oceans", icon = icon("dashboard"))
 ))
-
 body <- dashboardBody(
   ### changing theme
   shinyDashboardThemes(
     # theme = "blue_gradient"
-    theme = "poor_mans_flatly"
+    # theme = "poor_mans_flatly"
     # theme = "flat_red"
     # theme = "grey_light"
     # theme = "onenote"
-    # theme = "purple_gradient"
+    theme = "purple_gradient"
   ),
   tags$head(tags$style(type='text/css', ".slider-animate-button { font-size: 20pt !important; }")),
   tabItems(
@@ -100,9 +99,9 @@ body <- dashboardBody(
                                width = 12,
                                plotOutput("CO2Plot")
                              )
-                             
                            )
-                         )),
+                         )
+                ),
                 tabPanel("Top Emitters",
                          fluidRow(
                            column(
@@ -125,9 +124,7 @@ body <- dashboardBody(
                              plotOutput("top_emitter_plot")
                            )
                          )
-                         
-                ),
-                
+                )
               )
             )),
     
@@ -147,7 +144,7 @@ body <- dashboardBody(
                 width=12,
                 tabPanel("Temperature Anomalies",
                          fluidRow(
-                           infoBox("Latest Temperature Anomaly", "0.89 °C | 1.6 °F", icon = icon("thermometer-three-quarters"), width = "60%"),
+                           infoBox("Latest Temperature Anomaly", "0.89 °C | 1.6 °F", icon = icon("thermometer-three-quarters"), width=8),
                          ),
                          fluidRow(
                            box(
@@ -156,11 +153,14 @@ body <- dashboardBody(
                            )
                          )
                 ),
-                tabPanel("Mean Global Temperatures",
+                tabPanel("Surface Temperatures",
                          fluidRow(
                            column(
-                             8,
-                             offset = 4,
+                             6,
+                             infoBoxOutput("tempBox", width="100%")
+                           ),
+                           column(
+                             6,
                              selectInput(
                                "temp_countries",
                                "Choose a Country",
@@ -175,85 +175,125 @@ body <- dashboardBody(
                              plotOutput("temperature_plot")
                            )
                          )
-                ),
-                
-                
-                
+                )
               )
             )
-            
     ),
     
     # Third tab content
     tabItem(tabName = "oceans",
-            box(
-              width = 12,
-              title = 'Sea level Dashboard',
-              status = 'primary',
-              solidHeader = TRUE,
+            fluidRow(
+              box(
+                width = 12,
+                title = 'Oceans',
+                status = 'primary',
+                solidHeader = TRUE,
+              )
+            ),
+            fluidRow(
+              tabBox(
+                id="tabset_ocean",
+                width=12,
+                tabPanel("Global Mean Sea-Level",
+                         fluidRow(
+                           infoBox("Latest Sea Level", "100 mm", icon = icon("tint"), width=8),
+                         ),
+                         fluidRow(
+                           # box(
+                           #   width = 12,
+                           #   plotOutput("temp_anomaly_plot")
+                           # )
+                         )
+                ),
+                tabPanel("Oceans",
+                         fluidRow(
+                           column(
+                             6,
+                             infoBoxOutput("tempBox", width="100%")
+                           ),
+                           column(
+                             6,
+                             selectInput(
+                               "ocean",
+                               "Choose an Ocean",
+                               choices = oceans,
+                               selected = "World",
+                             )
+                           )
+                         ),
+                         fluidRow(
+                           box(
+                             width = 12,
+                             plotOutput("all_sea_levels")
+                           )
+                         )
+                )
+              )
             )
     )
-  ))
+  )
 
-dashboardPage(header,
-              sidebar,
-              body)
-
-
-# # Define UI for application that draws a histogram
-# shinyUI(
-#   navbarPage("Greenhouse Gas Dashboard",
-#              tabPanel(
-#                "Production",
-#                sidebarLayout(
-#                  sidebarPanel(
-#                    sliderInput("yr_range", "Period:",
-#                                min = 1970, max = 2021, value = c(1970, 2021),
-#                                step = 1, sep = ""),
-#                    tags$hr(),  # Add a horizontal rule for spacing
-#                    radioButtons("choice", "Select by:", choices = c("Groups", "Countries")),
-#                    tags$hr(),  # Add a horizontal rule for spacing
-#                    uiOutput("dropdown")
-#                  ),
-#                  # GDP plot for country
-#                  mainPanel(
-#                    tabsetPanel(
-#                      tabPanel("Emissions", plotOutput("CO2Plot"))
-#                    )
-#
-#                  )
-#                )
-#              ),
-#              tabPanel("Top Emitters",
-#                       sidebarLayout(
-#                         sidebarPanel(
-#                           sliderInput("year", "Year:",
-#                                       min = 1970, max = 2021,
-#                                       value = 1970, sep = "", step=1,
-#                                       animate =
-#                                         animationOptions(interval = 500, loop = FALSE)),
-#                         ),
-#                         mainPanel(
-#                           tabsetPanel(
-#                             tabPanel("Top 5 Emitters", plotOutput("top_emitter_plot"))
-#                           )
-#                         )
-#                       )
-#
-#              ),
-#              tabPanel("CO2 Concentration",
-#                       sidebarLayout(
-#                         sidebarPanel(
-#                           selectInput("timescale", "Choose a timescale", choices = c("Current", "2000 years", "800000 years"))
-#                         ),
-#                         # GDP plot for country
-#                         mainPanel(
-#                           tabsetPanel(
-#                             tabPanel("Concentrations", plotOutput("conc_plot"))
-#                           )
-#                         )
-#                       )
-#
-#                       ),
-#   )
-# )
+  
+  dashboardPage(header,
+                sidebar,
+                body)
+  
+  
+  # # Define UI for application that draws a histogram
+  # shinyUI(
+  #   navbarPage("Greenhouse Gas Dashboard",
+  #              tabPanel(
+  #                "Production",
+  #                sidebarLayout(
+  #                  sidebarPanel(
+  #                    sliderInput("yr_range", "Period:",
+  #                                min = 1970, max = 2021, value = c(1970, 2021),
+  #                                step = 1, sep = ""),
+  #                    tags$hr(),  # Add a horizontal rule for spacing
+  #                    radioButtons("choice", "Select by:", choices = c("Groups", "Countries")),
+  #                    tags$hr(),  # Add a horizontal rule for spacing
+  #                    uiOutput("dropdown")
+  #                  ),
+  #                  # GDP plot for country
+  #                  mainPanel(
+  #                    tabsetPanel(
+  #                      tabPanel("Emissions", plotOutput("CO2Plot"))
+  #                    )
+  #
+  #                  )
+  #                )
+  #              ),
+  #              tabPanel("Top Emitters",
+  #                       sidebarLayout(
+  #                         sidebarPanel(
+  #                           sliderInput("year", "Year:",
+  #                                       min = 1970, max = 2021,
+  #                                       value = 1970, sep = "", step=1,
+  #                                       animate =
+  #                                         animationOptions(interval = 500, loop = FALSE)),
+  #                         ),
+  #                         mainPanel(
+  #                           tabsetPanel(
+  #                             tabPanel("Top 5 Emitters", plotOutput("top_emitter_plot"))
+  #                           )
+  #                         )
+  #                       )
+  #
+  #              ),
+  #              tabPanel("CO2 Concentration",
+  #                       sidebarLayout(
+  #                         sidebarPanel(
+  #                           selectInput("timescale", "Choose a timescale", choices = c("Current", "2000 years", "800000 years"))
+  #                         ),
+  #                         # GDP plot for country
+  #                         mainPanel(
+  #                           tabsetPanel(
+  #                             tabPanel("Concentrations", plotOutput("conc_plot"))
+  #                           )
+  #                         )
+  #                       )
+  #
+  #                       ),
+  #   )
+  # )
+  

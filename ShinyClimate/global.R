@@ -22,3 +22,9 @@ temps <- read_csv('../ShinyClimate/data/temperature.csv')
 anomalies <- read_csv('../ShinyClimate/data/LandOceanTemperatureIndex.csv')
 temp_countries <- temps |> colnames()
 temp_countries <- temp_countries[-1]
+
+sealevels <- read_csv('../ShinyClimate/data/Change_in_Mean_Sea_Levels.csv')
+oceans <- sealevels|>
+  pull(Ocean)  |>
+  unique() |>
+  sort()
