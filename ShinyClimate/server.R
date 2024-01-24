@@ -146,15 +146,36 @@ function(input, output, session) {
       theme_classic()
   })
   
+  # output$all_sea_levels <- renderPlot({
+  #   which_sea <- input$ocean
+  #   sealevels |>
+  #     filter(Ocean == which_sea) |>
+  #     ggplot(aes(x = Decimal_Date, y = Value, color = Value)) +
+  #     geom_line() +
+  #     scale_color_gradient(low = "blue", high = "red") +  # Adjust the color scale
+  #     labs(x = "Year", y = "Value", title = paste("Mean Sea Level:",which_sea)) +
+  #     theme_classic()
+  # })
+  
   output$all_sea_levels <- renderPlot({
+    
+    sealevels <- read_csv('../ShinyClimate/data/Change_in_Mean_Sea_Levels.csv')
     which_sea <- input$ocean
-    sealevels |>
+    
+    colors <- c('TOPEX' = 'blue',
+                'Jason.1' = 'green',
+                'Jason.2' = 'red',
+                'Jason.3' = 'purple')
+    
+    sealevels |> 
       filter(Ocean == which_sea) |>
-      ggplot(aes(x = Decimal_Date, y = Value, color = Value)) +
+      ggplot(aes(x = Decimal_Date, y = Value, color = Satellite)) +
       geom_line() +
-      scale_color_gradient(low = "blue", high = "red") +  # Adjust the color scale
-      labs(x = "Year", y = "Value", title = paste("Mean Sea Level:",which_sea)) +
-      theme_classic()
+      geom_smooth(method = 'lm', se = FALSE, linetype = 'dashed', color = 'black') +  # Add trend line
+      labs(title = paste('Change in Mean Sea-level:',which_sea) , x = 'Date', y = 'Change in mean sea-level (mm)') +
+      scale_color_manual(values = colors) +
+      scale_x_continuous(breaks = seq(1992, 2023, by = 4))
+    
   })
 
   

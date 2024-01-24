@@ -47,3 +47,36 @@ temps$World[temps$Year == 2021]
       theme_classic()
 ```
 
+```{r}
+sealevels <- read_csv('../ShinyClimate/data/Change_in_Mean_Sea_Levels.csv')
+which_sea <- "World"
+
+df <- sealevels
+
+colors <- c('TOPEX' = 'red',
+            'Jason.1' = 'blue',
+            'Jason.2' = 'green',
+            'Jason.3' = 'yellow')
+
+# Create an empty ggplot object
+sealevels |> 
+      filter(Ocean == which_sea) |>
+ggplot(aes(x = Decimal_Date, y = Value, color = Satellite)) +
+  geom_line() +
+  labs(title = 'Decimal_Date vs Value', x = 'Decimal_Date', y = 'Value') +
+  scale_color_manual(values = colors)
+
+```
+
+```{r}
+oceans <- sealevels|>
+  pull(Ocean)  |>
+  unique()
+
+major_oceans <- c("World", "Pacific Ocean", "Atlantic Ocean", "Indian Ocean")
+  oceans <- setdiff(oceans, major_oceans)
+
+# Add them to the beginning of the array
+oceans <- c(major_oceans, oceans)
+```
+

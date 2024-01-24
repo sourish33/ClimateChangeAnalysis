@@ -26,5 +26,11 @@ temp_countries <- temp_countries[-1]
 sealevels <- read_csv('../ShinyClimate/data/Change_in_Mean_Sea_Levels.csv')
 oceans <- sealevels|>
   pull(Ocean)  |>
-  unique() |>
-  sort()
+  unique()
+
+major_oceans <- c("World", "Pacific Ocean", "Atlantic Ocean", "Indian Ocean")
+  oceans <- setdiff(oceans, major_oceans)
+
+# Add them to the beginning of the array
+oceans <- c(major_oceans, oceans)
+oceans |> sort()
