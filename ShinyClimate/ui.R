@@ -12,13 +12,8 @@ library(shinydashboard)
 library(fontawesome)
 library(dashboardthemes)
 
-selected_countries = reactive({
-  gdp_le |>
-    filter(Continent == input$continent) |>
-    pull(Country) |>
-    unique() |>
-    sort()
-})
+# google_font_link <- tags$link(rel = "stylesheet", href = "https://fonts.googleapis.com/css2?family=New+Cicle:wght@400;700&display=swap")
+google_font_link <- tags$link(rel = "stylesheet", href = "https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap")
 
 header <- dashboardHeader(title = "Climate Change Dashboard",
                           titleWidth = 350)
@@ -33,7 +28,7 @@ sidebar <- dashboardSidebar(sidebarMenu(
   menuItem("Oceans", tabName = "oceans", icon = icon("dashboard"))
 ))
 body <- dashboardBody(
-  ### changing theme
+  ## changing theme
   shinyDashboardThemes(
     # theme = "blue_gradient"
     # theme = "poor_mans_flatly"
@@ -42,7 +37,23 @@ body <- dashboardBody(
     # theme = "onenote"
     theme = "purple_gradient"
   ),
-  tags$head(tags$style(type='text/css', ".slider-animate-button { font-size: 20pt !important; }")),
+  google_font_link,
+  tags$head(
+    tags$style(
+      HTML("
+      body {
+        font-family: 'New Cicle', sans-serif;
+      }
+
+      .slider-animate-button {
+        font-size: 20pt !important;
+      }
+      .selectize-dropdown {
+      background-color: rgb(141,192,241) !important;
+    }
+    ")
+    )
+  ),
   tabItems(
     # First tab content
     tabItem(tabName = "co2",
