@@ -191,7 +191,7 @@ body <- dashboardBody(
               )
             ),
             fluidRow(
-              tabBox(
+            tabBox(
                 id="tabset_ocean",
                 width=12,
                 tabPanel("Global Mean Sea-Level",
@@ -207,10 +207,10 @@ body <- dashboardBody(
                 ),
                 tabPanel("Oceans",
                          fluidRow(
-                           column(
-                             6,
-                             infoBoxOutput("tempBox", width="100%")
-                           ),
+                           # column(
+                           #   6,
+                           #   infoBoxOutput("tempBox", width="100%")
+                           # ),
                            column(
                              6,
                              selectInput(
