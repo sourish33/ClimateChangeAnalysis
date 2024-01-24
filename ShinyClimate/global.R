@@ -18,12 +18,12 @@ ppm_df <- read_csv('data/data_modern_ppm.csv')
 ppm_df_2k <- read_csv('data/data_2000.csv')
 ppm_df_800k <- read_csv('data/data_800k.csv')
 
-temps <- read_csv('../ShinyClimate/data/temperature.csv')
-anomalies <- read_csv('../ShinyClimate/data/LandOceanTemperatureIndex.csv')
+temps <- read_csv('data/temperature.csv')
+anomalies <- read_csv('data/LandOceanTemperatureIndex.csv')
 temp_countries <- temps |> colnames()
 temp_countries <- temp_countries[-1]
 
-sealevels <- read_csv('../ShinyClimate/data/Change_in_Mean_Sea_Levels.csv')
+sealevels <- read_csv('data/Change_in_Mean_Sea_Levels.csv')
 oceans <- sealevels|>
   pull(Ocean)  |>
   unique()

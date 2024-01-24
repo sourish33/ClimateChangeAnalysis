@@ -98,8 +98,7 @@ function(input, output, session) {
   
   output$progressBox <- renderInfoBox({
     infoBox(
-      "Current CO2 Concentration", paste("422 ppm"), icon = icon("cloud"),
-      fill = TRUE,
+      "Today's CO2:", paste("422 ppm"), icon = icon("cloud"),
       subtitle = "Source: NASA"
     )
   })
@@ -141,7 +140,7 @@ function(input, output, session) {
     temps |>
       ggplot(aes(x = Year, y = !!sym(country), fill = !!sym(country))) +
       geom_bar(stat = "identity") +
-      scale_fill_gradient(low = "blue", high = "red") +  # Adjustinh the color scale
+      scale_fill_gradient(low = "blue", high = "red") +  # Adjusting the color scale
       labs(x = "Year", y = "Value", title = paste("Change in °C from 1951-1980 baseline: ", country)) +
       theme_classic()
   })
