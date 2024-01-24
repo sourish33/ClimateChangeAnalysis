@@ -194,7 +194,7 @@ body <- dashboardBody(
             tabBox(
                 id="tabset_ocean",
                 width=12,
-                tabPanel("Global Mean Sea-Level",
+                tabPanel("Historical Sea-Levels",
                          fluidRow(
                            infoBox("Latest Sea Level", "100 mm", icon = icon("tint"), width=8),
                          ),
@@ -205,7 +205,7 @@ body <- dashboardBody(
                            # )
                          )
                 ),
-                tabPanel("Oceans",
+                tabPanel("Modern Sea-Levels",
                          fluidRow(
                            # column(
                            #   6,

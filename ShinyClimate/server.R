@@ -146,16 +146,6 @@ function(input, output, session) {
       theme_classic()
   })
   
-  # output$all_sea_levels <- renderPlot({
-  #   which_sea <- input$ocean
-  #   sealevels |>
-  #     filter(Ocean == which_sea) |>
-  #     ggplot(aes(x = Decimal_Date, y = Value, color = Value)) +
-  #     geom_line() +
-  #     scale_color_gradient(low = "blue", high = "red") +  # Adjust the color scale
-  #     labs(x = "Year", y = "Value", title = paste("Mean Sea Level:",which_sea)) +
-  #     theme_classic()
-  # })
   
   output$all_sea_levels <- renderPlot({
     
