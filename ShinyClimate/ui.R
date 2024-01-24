@@ -12,13 +12,6 @@ library(shinydashboard)
 library(fontawesome)
 library(dashboardthemes)
 
-selected_countries = reactive({
-  gdp_le |>
-    filter(Continent == input$continent) |>
-    pull(Country) |>
-    unique() |>
-    sort()
-})
 
 header <- dashboardHeader(title = "Climate Change Dashboard",
                           titleWidth = 350)
@@ -33,7 +26,7 @@ sidebar <- dashboardSidebar(sidebarMenu(
   menuItem("Oceans", tabName = "oceans", icon = icon("dashboard"))
 ))
 body <- dashboardBody(
-  ### changing theme
+  ## changing theme
   shinyDashboardThemes(
     # theme = "blue_gradient"
     # theme = "poor_mans_flatly"
@@ -42,6 +35,7 @@ body <- dashboardBody(
     # theme = "onenote"
     theme = "purple_gradient"
   ),
+
   tags$head(tags$style(type='text/css', ".slider-animate-button { font-size: 20pt !important; }")),
   tabItems(
     # First tab content
