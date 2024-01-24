@@ -30,7 +30,10 @@ oceans <- sealevels|>
 
 major_oceans <- c("World", "Pacific Ocean", "Atlantic Ocean", "Indian Ocean")
   oceans <- setdiff(oceans, major_oceans)
-
-# Add them to the beginning of the array
 oceans <- c(major_oceans, oceans)
 oceans |> sort()
+
+
+gmsl_hist <- read_csv('data/CSIRO_Recons_gmsl_yr_2015.csv')
+
+

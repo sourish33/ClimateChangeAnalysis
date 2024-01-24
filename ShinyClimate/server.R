@@ -167,6 +167,14 @@ function(input, output, session) {
       scale_x_continuous(breaks = seq(1992, 2023, by = 4))
     
   })
+  
+  output$global_sea_levels <- renderPlot({
+    gmsl_hist |>
+      ggplot(aes(x = Time, y = GMSL)) +
+      geom_line() +
+      geom_ribbon(aes(ymin = GMSL - GMSL_unc, ymax = GMSL + GMSL_unc), alpha = 0.3) +
+      labs(title = "Historical Global Mean Sea Levels", x = "Time", y = "GMSL (mm)")
+  })
 
   
   

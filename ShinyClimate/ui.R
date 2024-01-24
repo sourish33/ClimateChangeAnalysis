@@ -199,10 +199,10 @@ body <- dashboardBody(
                            infoBox("Latest Sea Level", "100 mm", icon = icon("tint"), width=8),
                          ),
                          fluidRow(
-                           # box(
-                           #   width = 12,
-                           #   plotOutput("temp_anomaly_plot")
-                           # )
+                           box(
+                              width = 12,
+                              plotOutput("global_sea_levels")
+                           )
                          )
                 ),
                 tabPanel("Modern Sea-Levels",
