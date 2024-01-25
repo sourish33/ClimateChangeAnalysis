@@ -153,7 +153,7 @@ body <- dashboardBody(
               tabBox(
                 id="tabset_temp",
                 width=12,
-                tabPanel("Temperature Anomalies",
+                tabPanel("Global Temperature Anomalies",
                          fluidRow(
                            infoBox("Latest Temperature Anomaly (2023)", "1.17 °C", icon = icon("thermometer-three-quarters"), width=8, subtitle = "Source: NASA"),
                          ),
@@ -164,7 +164,7 @@ body <- dashboardBody(
                            )
                          )
                 ),
-                tabPanel("Surface Temperatures",
+                tabPanel("Temperature Anomalies by Country",
                          fluidRow(
                            column(
                              6,
@@ -205,25 +205,14 @@ body <- dashboardBody(
             tabBox(
                 id="tabset_ocean",
                 width=12,
-                tabPanel("Historical Sea-Levels",
-                         fluidRow(
-                           infoBox("Latest Sea Level", "100 mm", icon = icon("tint"), width=8, subtitle = "Source: NOAA"),
-                         ),
-                         fluidRow(
-                           box(
-                              width = 12,
-                              plotOutput("global_sea_levels")
-                           )
-                         )
-                ),
                 tabPanel("Modern Sea-Levels",
                          fluidRow(
-                           # column(
-                           #   6,
-                           #   infoBoxOutput("tempBox", width="100%")
-                           # ),
                            column(
-                             6,
+                             8,
+                             infoBox("Latest Sea Level (2022)", "85 mm", icon = icon("tint"), width=12, subtitle = "Source: NOAA"),
+                           ),
+                           column(
+                             4,
                              selectInput(
                                "ocean",
                                "Choose an Ocean",
@@ -238,7 +227,18 @@ body <- dashboardBody(
                              plotOutput("all_sea_levels")
                            )
                          )
-                )
+                ),
+                tabPanel("Historical Sea-Levels",
+                         # fluidRow(
+                         #   infoBox("Latest Sea Level", "100 mm", icon = icon("tint"), width=8, subtitle = "Source: NOAA"),
+                         # ),
+                         fluidRow(
+                           box(
+                             width = 12,
+                             plotOutput("global_sea_levels")
+                           )
+                         )
+                ),
               )
             )
     )

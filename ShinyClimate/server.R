@@ -141,7 +141,7 @@ function(input, output, session) {
       ggplot(aes(x = Year, y = !!sym(country), fill = !!sym(country))) +
       geom_bar(stat = "identity") +
       scale_fill_gradient(low = "blue", high = "red") +  # Adjusting the color scale
-      labs(x = "Year", y = "Value", title = paste("Change in °C from 1951-1980 baseline: ", country)) +
+      labs(x = "Year", y = "Anomaly (°C)", title = paste("Change in °C from 1951-1980 baseline: ", country)) +
       theme_classic()
   })
   
@@ -163,16 +163,18 @@ function(input, output, session) {
       geom_smooth(method = 'lm', se = FALSE, linetype = 'dashed', color = 'black') +  # Add trend line
       labs(title = paste('Change in Mean Sea-level:',which_sea) , x = 'Date', y = 'Change in mean sea-level (mm)') +
       scale_color_manual(values = colors) +
-      scale_x_continuous(breaks = seq(1992, 2023, by = 4))
+      scale_x_continuous(breaks = seq(1992, 2023, by = 4)) +
+      theme_classic()
     
   })
   
   output$global_sea_levels <- renderPlot({
     gmsl_hist |>
       ggplot(aes(x = Time, y = GMSL)) +
-      geom_line() +
-      geom_ribbon(aes(ymin = GMSL - GMSL_unc, ymax = GMSL + GMSL_unc), alpha = 0.3) +
-      labs(title = "Historical Global Mean Sea Levels", x = "Time", y = "Global Mean Sea Level (mm)")
+      geom_line(color = "blue") +  # Set plot color to blue
+      geom_ribbon(aes(ymin = GMSL - GMSL_unc, ymax = GMSL + GMSL_unc), fill = "lightblue", alpha = 0.3) +  # Set ribbon color to light blue
+      labs(title = "Global Sea Levels (Tide gauge data)", x = "Year", y = "Global Mean Sea Level (mm)") +
+      theme_classic()
   })
 
   
