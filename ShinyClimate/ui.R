@@ -239,6 +239,17 @@ body <- dashboardBody(
                            )
                          )
                 ),
+                tabPanel("Sea-Level Trends",
+                         fluidRow(
+                           infoBox("Global Sea Level Trend", "3.02 mm/year", icon = icon("tint"), width=8, subtitle = "Source: NOAA"),
+                         ),
+                         fluidRow(
+                           box(
+                             width = 12,
+                             plotOutput("global_sea_level_trends")
+                           )
+                         )
+                ),
               )
             )
     )

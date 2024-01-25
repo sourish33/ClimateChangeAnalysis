@@ -60,17 +60,29 @@ function(input, output, session) {
   })
   
   output$conc_plot <- renderPlot({
-    df <- ppm_data()$data
     title_fragment <-ppm_data()$title_fragment
+    df <- ppm_data()$data
     xlabel <- ppm_data()$xlabel
+    if (title_fragment == "from 1958-present") {
+      df |>
+        ggplot(aes(x = Numeric_date, y = Value)) +
+        geom_line(color = "blue") +
+        geom_point(size = 0.5, color="blue") +
+        geom_smooth(aes(x = Numeric_date, y = Value), method = "loess", se = FALSE, color = "red")+
+        labs(title = paste("Atmospheric CO2 concentrations", title_fragment),
+             x = xlabel,
+             y = "CO2 concentration (ppm)") +
+        theme_classic()
+    } else {
     df |>
       ggplot(aes(x = Numeric_date, y = Value)) +
-      geom_line() +
-      geom_point(size = 0.5) +
+      geom_line(color = "blue") +
+      geom_point(size = 0.5, color="blue") +
       labs(title = paste("Atmospheric CO2 concentrations", title_fragment),
            x = xlabel,
            y = "CO2 concentration (ppm)") +
       theme_classic()
+    }
   })
   
   output$top_emitter_plot <- renderPlot({
@@ -175,6 +187,22 @@ function(input, output, session) {
       geom_ribbon(aes(ymin = GMSL - GMSL_unc, ymax = GMSL + GMSL_unc), fill = "lightblue", alpha = 0.3) +  # Set ribbon color to light blue
       labs(title = "Global Sea Levels (Tide gauge data)", x = "Year", y = "Global Mean Sea Level (mm)") +
       theme_classic()
+  })
+  
+  output$global_sea_level_trends <- renderPlot({
+    world_sealevel_trend <- mean_sealevel_trends|>
+      filter(Ocean == 'World') |>
+      pull(Value)
+    mean_sealevel_trends |>
+      filter(Ocean != 'World') |>
+      ggplot(aes(x = Value, y = reorder(Ocean, Value))) +
+      geom_bar(stat = "identity", fill = "lightblue", color = "white") +
+      labs(title = "Trends in Mean Sea Levels (mm/year)",
+           x = "Mean yearly change in sea level (mm)",
+           y = "") +
+      theme_classic() +
+      geom_vline(xintercept = 3.02, linetype = "dashed", color = "red") +
+      annotate("text", x = 3.02, y = Inf, vjust = 1.5, hjust = -.2, label = "World", color = "red", hjust = 0)
   })
 
   

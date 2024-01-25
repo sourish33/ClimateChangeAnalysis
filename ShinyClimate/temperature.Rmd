@@ -73,6 +73,30 @@ sealevels |>
 ```
 
 ```{r}
+mean_sealevel_trends <- read_csv('data/Mean_Sea_Levels_Trends.csv')
+world_sealevel_trend <- mean_sealevel_trends|>
+  filter(Ocean == 'World') |>
+  pull(Value)
+mean_sealevel_trends |>
+    filter(Ocean != 'World') |>
+ggplot(aes(x = Value, y = reorder(Ocean, Value))) +
+  geom_bar(stat = "identity", fill = "lightblue", color = "white") +
+  labs(title = "Trends in Mean Sea Levels",
+       x = "Mean yearly change in sea level (mm)",
+       y = "") +
+  theme_classic() +
+  geom_vline(xintercept = 3.02, linetype = "dashed", color = "red") +
+  annotate("text", x = 3.02, y = Inf, vjust = 1.5, hjust = -.2, label = "World", color = "red", hjust = 0)
+```
+```{r}
+mean_sealevel_trends|>
+  filter(Ocean == 'World') |>
+  pull(Value)
+```
+
+
+
+```{r}
 oceans <- sealevels|>
   pull(Ocean)  |>
   unique()
