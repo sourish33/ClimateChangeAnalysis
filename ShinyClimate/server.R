@@ -122,7 +122,7 @@ function(input, output, session) {
       geom_line(aes(y = No_smoothing, color = "Annual Mean"), linetype = "solid") +
       geom_point(aes(y = No_smoothing, color = "Annual Mean"), size = 2) +
       geom_line(aes(y = Lowess, color = "Smoothed (Lowess)"), linetype = "solid") +
-      labs(title = "Time series of mean annual temperature anomalies", x = "Year", y = "Anomaly (°C)") +
+      labs(title = "Time series of mean annual temperature anomalies (Baseline: 1951-1980)", x = "Year", y = "Anomaly (°C)") +
       scale_color_manual(values = c("Annual Mean" = "blue", "Smoothed (Lowess)" = "red")) +
       theme_classic() +
       theme(
@@ -153,7 +153,7 @@ function(input, output, session) {
       ggplot(aes(x = Year, y = !!sym(country), fill = !!sym(country))) +
       geom_bar(stat = "identity") +
       scale_fill_gradient(low = "blue", high = "red") +  # Adjusting the color scale
-      labs(x = "Year", y = "Anomaly (°C)", title = paste("Change in °C from 1951-1980 baseline: ", country)) +
+      labs(x = "Year", y = "Anomaly (°C)", title = paste("Change in °C for: ", country, "(relative to 1951-1980 baseline)")) +
       theme_classic()
   })
   
