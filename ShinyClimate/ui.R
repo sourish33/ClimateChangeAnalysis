@@ -155,7 +155,7 @@ body <- dashboardBody(
                 width=12,
                 tabPanel("Temperature Anomalies",
                          fluidRow(
-                           infoBox("Latest Temperature Anomaly", "0.89 °C | 1.6 °F", icon = icon("thermometer-three-quarters"), width=8),
+                           infoBox("Latest Temperature Anomaly (2023)", "1.17 °C", icon = icon("thermometer-three-quarters"), width=8, subtitle = "Source: NASA"),
                          ),
                          fluidRow(
                            box(
@@ -207,7 +207,7 @@ body <- dashboardBody(
                 width=12,
                 tabPanel("Historical Sea-Levels",
                          fluidRow(
-                           infoBox("Latest Sea Level", "100 mm", icon = icon("tint"), width=8),
+                           infoBox("Latest Sea Level", "100 mm", icon = icon("tint"), width=8, subtitle = "Source: NOAA"),
                          ),
                          fluidRow(
                            box(

@@ -67,6 +67,10 @@ ggplot(aes(x = Decimal_Date, y = Value, color = Satellite)) +
   scale_color_manual(values = colors)
 
 ```
+```{r}
+sealevels |>
+  filter(Ocean == "World" & Decimal_Date>2022)
+```
 
 ```{r}
 oceans <- sealevels|>

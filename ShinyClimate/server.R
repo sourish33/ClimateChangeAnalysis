@@ -98,8 +98,8 @@ function(input, output, session) {
   
   output$progressBox <- renderInfoBox({
     infoBox(
-      "Today's CO2:", paste("422 ppm"), icon = icon("cloud"),
-      subtitle = "Source: NASA"
+      "Latest CO2 (Dec 2023):", paste("422 ppm"), icon = icon("cloud"),
+      subtitle = "Source: NOAA"
     )
   })
   
@@ -110,7 +110,7 @@ function(input, output, session) {
       geom_line(aes(y = No_smoothing, color = "Annual Mean"), linetype = "solid") +
       geom_point(aes(y = No_smoothing, color = "Annual Mean"), size = 2) +
       geom_line(aes(y = Lowess, color = "Smoothed (Lowess)"), linetype = "solid") +
-      labs(title = "Global Land-Ocean Temperature Index", x = "Year", y = "Values") +
+      labs(title = "Time series of mean annual temperature anomalies", x = "Year", y = "Anomaly (°C)") +
       scale_color_manual(values = c("Annual Mean" = "blue", "Smoothed (Lowess)" = "red")) +
       theme_classic() +
       theme(
@@ -128,7 +128,7 @@ function(input, output, session) {
     curtemp <- round(curtemp, digits=2)
     
     if (!is.na(curtemp) && length(curtemp) > 0) {
-      infoBox("Above Baseline (2021)", paste(curtemp, "°C"), icon = icon("thermometer-three-quarters"))
+      infoBox("Above Baseline (2021)", paste(curtemp, "°C"), icon = icon("thermometer-three-quarters"),subtitle = "Source: NASA")
     } else {
       infoBox("Above Baseline", "Data not available", icon = icon("thermometer-three-quarters"))
     }
