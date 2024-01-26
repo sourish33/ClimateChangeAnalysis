@@ -17,9 +17,9 @@ function(input, output, session) {
       return(list(data = ppm_df, title_fragment = "from 1958-present", xlabel = "Year"))
     }
     if (input$timescale == "2000 years"){
-      return(list(data = ppm_df_2k, title_fragment = "over 2000 years", xlabel = "Year"))
+      return(list(data = ppm_df_2k, title_fragment = "over 2000 years (ice-core data)", xlabel = "Year"))
     }
-    return(list(data = ppm_df_800k, title_fragment = "over 800K years", xlabel = "Thousands of years before today"))
+    return(list(data = ppm_df_800k, title_fragment = "over 800K years (ice-core data)", xlabel = "Thousands of years before today"))
   })
   
   
@@ -56,7 +56,9 @@ function(input, output, session) {
       labs(title = paste("Greenhouse Gas Emissions from 1970 to 2021 for", country),
            x = "Years",
            y = "Gigatons of CO2 equivalent") +
-      theme_classic()
+      theme_classic()+
+      theme(axis.text.x = element_text(size = 12),   # Adjust the font size
+            axis.text.y = element_text(size = 12))   # Adjust the font size
   })
   
   output$conc_plot <- renderPlot({
@@ -72,7 +74,9 @@ function(input, output, session) {
         labs(title = paste("Atmospheric CO2 concentrations", title_fragment),
              x = xlabel,
              y = "CO2 concentration (ppm)") +
-        theme_classic()
+        theme_classic() +
+        theme(axis.text.x = element_text(size = 12),   # Adjust the font size
+              axis.text.y = element_text(size = 12))   # Adjust the font size
     } else {
     df |>
       ggplot(aes(x = Numeric_date, y = Value)) +
@@ -81,7 +85,9 @@ function(input, output, session) {
       labs(title = paste("Atmospheric CO2 concentrations", title_fragment),
            x = xlabel,
            y = "CO2 concentration (ppm)") +
-      theme_classic()
+      theme_classic()+
+        theme(axis.text.x = element_text(size = 12),   # Adjust the font size
+              axis.text.y = element_text(size = 12))   # Adjust the font size
     }
   })
   
@@ -103,8 +109,11 @@ function(input, output, session) {
       theme_classic() +
       theme(axis.text.x = element_text(size = 10, angle = 45, hjust = 1, face = "bold"),  # X-axis labels bold
             axis.text.y = element_text(size = 10, face = "bold")) + # Y-axis labels bold
-      annotate("text", x = Inf, y = Inf, label = paste("World Total Emissions in", input$year, ":", total_emissions, "Gigatons"),
-               hjust = 1, vjust = 1, size = 6) 
+      annotate("text", x = Inf, y = Inf, 
+               label = paste("World Total Emissions in", input$year, ": ", total_emissions, "Gigatons"),
+               hjust = 1.2, vjust = 5, size = 6) +
+      theme(axis.text.x = element_text(size = 12),   # Adjust the font size
+            axis.text.y = element_text(size = 12))   # Adjust the font size
     
   })
   
@@ -129,7 +138,9 @@ function(input, output, session) {
         legend.position = c(0.2, 0.9),  
         legend.background = element_rect(color = "black", fill = "white"),
         legend.title= element_blank()
-      )
+      )+
+      theme(axis.text.x = element_text(size = 12),   # Adjust the font size
+            axis.text.y = element_text(size = 12))   # Adjust the font size
   }
   )
   
@@ -154,7 +165,9 @@ function(input, output, session) {
       geom_bar(stat = "identity") +
       scale_fill_gradient(low = "blue", high = "red") +  # Adjusting the color scale
       labs(x = "Year", y = "Anomaly (°C)", title = paste("Change in °C for: ", country, "(relative to 1951-1980 baseline)")) +
-      theme_classic()
+      theme_classic()+
+      theme(axis.text.x = element_text(size = 12),   # Adjust the font size
+            axis.text.y = element_text(size = 12))   # Adjust the font size
   })
   
   
@@ -173,10 +186,12 @@ function(input, output, session) {
       ggplot(aes(x = Decimal_Date, y = Value, color = Satellite)) +
       geom_line() +
       geom_smooth(method = 'lm', se = FALSE, linetype = 'dashed', color = 'black') +  # Add trend line
-      labs(title = paste('Change in Mean Sea-level:',which_sea) , x = 'Date', y = 'Change in mean sea-level (mm)') +
+      labs(title = paste('Change in Mean Sea-level (mm since 1993):',which_sea) , x = 'Date', y = 'Change in mean sea-level (mm)') +
       scale_color_manual(values = colors) +
       scale_x_continuous(breaks = seq(1992, 2023, by = 4)) +
-      theme_classic()
+      theme_classic()+
+      theme(axis.text.x = element_text(size = 12),   # Adjust the font size
+            axis.text.y = element_text(size = 12))   # Adjust the font size
     
   })
   
@@ -185,8 +200,10 @@ function(input, output, session) {
       ggplot(aes(x = Time, y = GMSL)) +
       geom_line(color = "blue") +  # Set plot color to blue
       geom_ribbon(aes(ymin = GMSL - GMSL_unc, ymax = GMSL + GMSL_unc), fill = "green", alpha = 0.3) +  # Set ribbon color to light blue
-      labs(title = "Global Sea Levels (Tide gauge data)", x = "Year", y = "Global Mean Sea Level (mm)") +
-      theme_classic()
+      labs(title = "Global Sea Levels from tide gauge data (mm since 1993)", x = "Year", y = "Global Mean Sea Level (mm)") +
+      theme_classic()+
+      theme(axis.text.x = element_text(size = 12),   # Adjust the font size
+            axis.text.y = element_text(size = 12))   # Adjust the font size
   })
   
   output$global_sea_level_trends <- renderPlot({
@@ -197,13 +214,15 @@ function(input, output, session) {
       filter(Ocean != 'World') |>
       ggplot(aes(x = Value, y = reorder(Ocean, Value))) +
       geom_bar(stat = "identity", fill = "lightblue", color = "white") +
-      labs(title = "Trends in Mean Sea Levels (mm/year)",
+      labs(title = "Trends in Mean Sea Levels (mm/year since 1993)",
            x = "Mean yearly change in sea level (mm)",
            y = "") +
       theme_classic() +
       geom_vline(xintercept = 3.02, linetype = "dashed", color = "red") +
-      annotate("text", x = 3.02, y = Inf, vjust = 1.5, hjust = -.2, label = "World", color = "red", hjust = 0)
-  })
+      annotate("text", x = 3.02, y = Inf, vjust = 1.5, hjust = -.2, label = "World", color = "red", hjust = 0)+
+      theme(axis.text.x = element_text(size = 12),   # Adjust the font size
+            axis.text.y = element_text(size = 12))   # Adjust the font size
+  }, height = 500)
 
   
   

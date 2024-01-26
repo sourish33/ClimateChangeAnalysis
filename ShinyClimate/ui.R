@@ -250,7 +250,7 @@ body <- dashboardBody(
                 ),
                 tabPanel("Sea Level Trends",
                          fluidRow(
-                           infoBox("Global Sea Level Trend", "3.02 mm/year", icon = icon("tint"), width=8, subtitle = "Source: NOAA"),
+                           infoBox("Global Sea Level Trend", "3.02 mm/year since 1993", icon = icon("tint"), width=8, subtitle = "Source: NOAA"),
                          ),
                          fluidRow(
                            box(
