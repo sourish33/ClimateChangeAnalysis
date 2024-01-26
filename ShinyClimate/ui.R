@@ -25,7 +25,7 @@ sidebar <- dashboardSidebar(sidebarMenu(
     tabName = "temperature",
     icon = icon("dashboard")
   ),
-  menuItem("Oceans", tabName = "oceans", icon = icon("dashboard"))
+  menuItem("Sea Levels", tabName = "oceans", icon = icon("dashboard"))
 ))
 body <- dashboardBody(
   ## changing theme
@@ -44,6 +44,15 @@ body <- dashboardBody(
       body {
         font-family: 'New Cicle', sans-serif;
       }
+    .irs-grid-text {
+      font-size: 12px;
+    }
+    .irs--shiny .irs-min,.irs--shiny .irs-max {
+      font-size: 12px;
+    }
+    .irs--shiny .irs-from,.irs--shiny .irs-to,.irs--shiny .irs-single {
+      font-size: 10px;
+    }
 
       .slider-animate-button {
         font-size: 20pt !important;
@@ -196,7 +205,7 @@ body <- dashboardBody(
             fluidRow(
               box(
                 width = 12,
-                title = 'Oceans',
+                title = 'Sea Levels',
                 status = 'primary',
                 solidHeader = TRUE,
               )
@@ -205,7 +214,7 @@ body <- dashboardBody(
             tabBox(
                 id="tabset_ocean",
                 width=12,
-                tabPanel("Modern Sea-Levels",
+                tabPanel("Recent Sea-Levels",
                          fluidRow(
                            column(
                              8,
@@ -215,7 +224,7 @@ body <- dashboardBody(
                              4,
                              selectInput(
                                "ocean",
-                               "Choose an Ocean",
+                               "Choose a Sea",
                                choices = oceans,
                                selected = "World",
                              )
@@ -228,7 +237,7 @@ body <- dashboardBody(
                            )
                          )
                 ),
-                tabPanel("Historical Sea-Levels",
+                tabPanel("Historical Sea Levels",
                          # fluidRow(
                          #   infoBox("Latest Sea Level", "100 mm", icon = icon("tint"), width=8, subtitle = "Source: NOAA"),
                          # ),
@@ -239,7 +248,7 @@ body <- dashboardBody(
                            )
                          )
                 ),
-                tabPanel("Sea-Level Trends",
+                tabPanel("Sea Level Trends",
                          fluidRow(
                            infoBox("Global Sea Level Trend", "3.02 mm/year", icon = icon("tint"), width=8, subtitle = "Source: NOAA"),
                          ),
@@ -260,62 +269,4 @@ body <- dashboardBody(
                 sidebar,
                 body)
   
-  
-  # # Define UI for application that draws a histogram
-  # shinyUI(
-  #   navbarPage("Greenhouse Gas Dashboard",
-  #              tabPanel(
-  #                "Production",
-  #                sidebarLayout(
-  #                  sidebarPanel(
-  #                    sliderInput("yr_range", "Period:",
-  #                                min = 1970, max = 2021, value = c(1970, 2021),
-  #                                step = 1, sep = ""),
-  #                    tags$hr(),  # Add a horizontal rule for spacing
-  #                    radioButtons("choice", "Select by:", choices = c("Groups", "Countries")),
-  #                    tags$hr(),  # Add a horizontal rule for spacing
-  #                    uiOutput("dropdown")
-  #                  ),
-  #                  # GDP plot for country
-  #                  mainPanel(
-  #                    tabsetPanel(
-  #                      tabPanel("Emissions", plotOutput("CO2Plot"))
-  #                    )
-  #
-  #                  )
-  #                )
-  #              ),
-  #              tabPanel("Top Emitters",
-  #                       sidebarLayout(
-  #                         sidebarPanel(
-  #                           sliderInput("year", "Year:",
-  #                                       min = 1970, max = 2021,
-  #                                       value = 1970, sep = "", step=1,
-  #                                       animate =
-  #                                         animationOptions(interval = 500, loop = FALSE)),
-  #                         ),
-  #                         mainPanel(
-  #                           tabsetPanel(
-  #                             tabPanel("Top 5 Emitters", plotOutput("top_emitter_plot"))
-  #                           )
-  #                         )
-  #                       )
-  #
-  #              ),
-  #              tabPanel("CO2 Concentration",
-  #                       sidebarLayout(
-  #                         sidebarPanel(
-  #                           selectInput("timescale", "Choose a timescale", choices = c("Current", "2000 years", "800000 years"))
-  #                         ),
-  #                         # GDP plot for country
-  #                         mainPanel(
-  #                           tabsetPanel(
-  #                             tabPanel("Concentrations", plotOutput("conc_plot"))
-  #                           )
-  #                         )
-  #                       )
-  #
-  #                       ),
-  #   )
-  # )
   

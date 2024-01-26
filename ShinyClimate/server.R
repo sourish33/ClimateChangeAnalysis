@@ -184,7 +184,7 @@ function(input, output, session) {
     gmsl_hist |>
       ggplot(aes(x = Time, y = GMSL)) +
       geom_line(color = "blue") +  # Set plot color to blue
-      geom_ribbon(aes(ymin = GMSL - GMSL_unc, ymax = GMSL + GMSL_unc), fill = "lightblue", alpha = 0.3) +  # Set ribbon color to light blue
+      geom_ribbon(aes(ymin = GMSL - GMSL_unc, ymax = GMSL + GMSL_unc), fill = "green", alpha = 0.3) +  # Set ribbon color to light blue
       labs(title = "Global Sea Levels (Tide gauge data)", x = "Year", y = "Global Mean Sea Level (mm)") +
       theme_classic()
   })
