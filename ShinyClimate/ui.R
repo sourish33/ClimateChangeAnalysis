@@ -79,8 +79,8 @@ body <- dashboardBody(
               imageOutput("image")
             ),
             fluidRow(
-              column(1, offset=1, actionButton("previous", "Previous")),
-              column(1, offset=1, actionButton("next", "Next"))
+              column(1, offset = 1, actionButton("previous", "Previous", style = "margin-bottom: 10px;")),
+              column(1, offset = 1, actionButton("next", "Next", style = "margin-bottom: 10px;"))
             )
     ),
     

@@ -14,8 +14,18 @@ function(input, output, session) {
   })
   
   output$image <- renderImage({
-    x <- imgs[index()] 
-    list(src = imgs[1], alt = "alternate text")
+    # x <- imgs[index()] 
+    # list(src = imgs[1], alt = "alternate text")
+    filename <- normalizePath(file.path('./images',
+                                        paste('Slide', index(), '.jpg', sep='')))
+    
+    # Return a list containing the filename and alt text
+    list(src = filename,
+         contentType = 'image/jpg',
+         width = "99%",  # Set width to 100% to fit the container
+         height = "auto",  # Set height to auto to maintain aspect ratio
+         style = "border-radius: 10px;",
+         alt = paste("Image number", index()))
   }, deleteFile = FALSE)
   
   
