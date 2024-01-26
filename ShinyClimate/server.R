@@ -14,8 +14,6 @@ function(input, output, session) {
   })
   
   output$image <- renderImage({
-    # x <- imgs[index()] 
-    # list(src = imgs[1], alt = "alternate text")
     filename <- normalizePath(file.path('./images',
                                         paste('Slide', index(), '.jpg', sep='')))
     
@@ -41,7 +39,7 @@ function(input, output, session) {
   
   ppm_data <- reactive({
     if (input$timescale == "Current"){
-      return(list(data = ppm_df, title_fragment = "from 1958-present", xlabel = "Year"))
+      return(list(data = ppm_df, title_fragment = "from 1958-present (Mauna Loa)", xlabel = "Year"))
     }
     if (input$timescale == "2000 years"){
       return(list(data = ppm_df_2k, title_fragment = "over 2000 years (ice-core data)", xlabel = "Year"))
