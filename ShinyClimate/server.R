@@ -3,6 +3,23 @@ library(shiny)
 
 # Define server logic required to draw a histogram
 function(input, output, session) {
+  imgs <- list.files('images/') 
+  index <- reactiveVal(1)
+  
+  observeEvent(input[["previous"]], {
+    index(max(index()-1, 1))
+  })
+  observeEvent(input[["next"]], {
+    index(min(index()+1, length(imgs)))
+  })
+  
+  output$image <- renderImage({
+    x <- imgs[index()] 
+    list(src = imgs[1], alt = "alternate text")
+  }, deleteFile = FALSE)
+  
+  
+  
   # Define the choices based on radio button selection
   choices <- reactive({
     if (input$choice == "Countries") {

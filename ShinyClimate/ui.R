@@ -19,6 +19,7 @@ header <- dashboardHeader(title = "Climate Change Dashboard",
                           titleWidth = 350)
 
 sidebar <- dashboardSidebar(sidebarMenu(
+  menuItem("Introduction", tabName = "intro", icon = icon("dashboard")),
   menuItem("CO2", tabName = "co2", icon = icon("dashboard")),
   menuItem(
     "Temperature",
@@ -64,6 +65,25 @@ body <- dashboardBody(
     )
   ),
   tabItems(
+    # Zeroth tab content
+    tabItem(tabName = "intro",
+            fluidRow(
+              box(
+                width = 12,
+                title = 'Introduction',
+                status = 'primary',
+                solidHeader = TRUE,
+              )
+              ),
+            fluidRow(
+              imageOutput("image")
+            ),
+            fluidRow(
+              column(1, offset=1, actionButton("previous", "Previous")),
+              column(1, offset=1, actionButton("next", "Next"))
+            )
+    ),
+    
     # First tab content
     tabItem(tabName = "co2",
             fluidRow(
