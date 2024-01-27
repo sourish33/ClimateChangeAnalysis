@@ -125,24 +125,23 @@ body <- dashboardBody(
                          )
                 ),
                 tabPanel("Production",
-                         sidebarLayout(
-                           sidebarPanel(
-                             radioButtons(
-                               "choice",
-                               "Select by:",
-                               choices = c("Groups", "Countries"),
-                               selected = "Groups"
-                             ),
-                             tags$hr(),
-                             # Add a horizontal rule for spacing
-                             uiOutput("dropdown")
+                         fluidRow(
+                           column(6,
+                                  radioButtons(
+                                    "choice",
+                                    "Select by:",
+                                    choices = c("Groups", "Countries"),
+                                    selected = "Groups"
+                                  )
                            ),
-                           # GDP plot for country
-                           mainPanel(
-                             box(
-                               width = 12,
-                               plotOutput("CO2Plot")
-                             )
+                           column(6, uiOutput("dropdown"))
+                         ),
+                         fluidRow(
+                           column(12,
+                                  box(
+                                    width = 12,
+                                    plotOutput("CO2Plot")
+                                  )
                            )
                          )
                 ),
