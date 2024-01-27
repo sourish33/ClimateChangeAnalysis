@@ -122,6 +122,7 @@ function(input, output, session) {
         ggplot(aes(x = Numeric_date, y = Value)) +
         geom_line(color = "blue") +
         geom_point(size = 0.5, color = "blue") +
+        geom_hline(yintercept = 312, linetype = "dashed", color = "red", size = 1) + 
         labs(title = paste("Atmospheric CO2 concentrations", title_fragment),
              x = xlabel,
              y = "CO2 concentration (ppm)") +
