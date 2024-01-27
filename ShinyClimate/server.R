@@ -21,8 +21,8 @@ function(input, output, session) {
     list(src = filename,
          contentType = 'image/jpg',
          width = "99%",  # Set width to 100% to fit the container
-         height = "auto",  # Set height to auto to maintain aspect ratio
-         style = "border-radius: 10px;",
+         # height = "auto",  # Set height to auto to maintain aspect ratio
+         style = "border-radius: 10px;", 
          alt = paste("Image number", index()))
   }, deleteFile = FALSE)
   

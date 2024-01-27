@@ -76,12 +76,16 @@ body <- dashboardBody(
               )
               ),
             fluidRow(
-              imageOutput("image")
+              # column(1, actionButton("previous", "Previous", style = "margin-bottom: 10px;")),
+              # column(11,align ="right", actionButton("next", "Next", style = "margin-bottom: 10px; margin-right:auto"))
+              column(12, class="d-flex justify-content-between, col-sm-12 col-lg-8", actionButton("previous", "Previous", style = "margin-bottom: 10px;"), actionButton("next", "Next", style = "margin-bottom: 10px;"))
             ),
             fluidRow(
-              column(1, offset = 1, actionButton("previous", "Previous", style = "margin-bottom: 10px;")),
-              column(1, offset = 1, actionButton("next", "Next", style = "margin-bottom: 10px;"))
-            )
+              column(width=12, class = "col-sm-12 col-lg-8", align ="center", 
+              imageOutput("image")
+              )
+            ),
+
     ),
     
     # First tab content
