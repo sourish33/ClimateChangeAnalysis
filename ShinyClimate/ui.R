@@ -171,6 +171,7 @@ body <- dashboardBody(
                 tabPanel("CO2 Game",
                          fluidRow(
                            column(6, textInput("yrInput", "Enter your year of birth")),
+                           column(6, align = "left", style="margin-top:25px",  actionButton("submitBtn", "Submit"))
                          ),
                          fluidRow(
                            column(12, 
@@ -179,11 +180,12 @@ body <- dashboardBody(
                                     status = "info",
                                     solidHeader = TRUE,
                                     textOutput("outputText"),
-                                    width="100%"
+                                    width = "100%"
                                   )
                            )
                          )
                 )
+                
               )
             )),
     
