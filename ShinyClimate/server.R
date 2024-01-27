@@ -33,10 +33,21 @@ function(input, output, session) {
     if (is.na(yr) || yr < 1923 || yr > 2021) {
       return("Please enter a valid numeric birth year between 1923 and 2021.")
     } else {
+      age = 2023 - yr
+      yr1 = yr - age
       val <- ppm_df_2k[which.min(abs(ppm_df_2k$Numeric_date - yr)), ]$Value
-      return(paste("The CO2 concentration has changed by", round(100 * (422 - val) / val), "% since you were born"))
+      val1 <- ppm_df_2k[which.min(abs(ppm_df_2k$Numeric_date - yr1)), ]$Value
+      return(paste("The CO2 concentration has changed by", 
+                   round(100 * (422 - val) / val), 
+                   "% in the", 
+                   age,  
+                   "years since you were born, but only",
+                   round(100 * (val - val1) / val1), 
+                   "% in the", age, "years before that" 
+      ))
     }
   })
+  
 
   
 
