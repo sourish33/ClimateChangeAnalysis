@@ -15,7 +15,7 @@ function(input, output, session) {
   
   output$image <- renderImage({
     filename <- normalizePath(file.path('./images',
-                                        paste('Slide', index(), '.jpg', sep='')))
+                                        paste('Slide', index(), '.jpeg', sep='')))
     
     # Return a list containing the filename and alt text
     list(src = filename,
