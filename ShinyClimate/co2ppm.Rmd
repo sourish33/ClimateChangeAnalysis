@@ -52,3 +52,12 @@ temp_countries <- temps |> colnames()
 temp_countries <- temp_countries[-1]
 ```
 
+```{r}
+yr = 1975
+df <- read_csv('data/data_2000.csv')
+# val <- df |> filter(Numeric_date>= yr & Numeric_date <yr+1) |> summarize(avg = mean(Value)) |> pull()
+val <- df[which.min(abs(df$Numeric_date-yr)),]$Value
+print(val)
+```
+
+

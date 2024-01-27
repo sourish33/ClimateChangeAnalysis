@@ -1,6 +1,5 @@
 library(shiny)
 
-
 # Define server logic required to draw a histogram
 function(input, output, session) {
   imgs <- list.files('images/') 
@@ -26,6 +25,21 @@ function(input, output, session) {
          alt = paste("Image number", index()))
   }, deleteFile = FALSE)
   
+  
+
+  output$outputText <- renderText({
+    yr <- as.numeric(input$yrInput)
+    
+    if (is.na(yr) || yr < 1923 || yr > 2021) {
+      return("Please enter a valid numeric birth year between 1923 and 2021.")
+    } else {
+      val <- ppm_df_2k[which.min(abs(ppm_df_2k$Numeric_date - yr)), ]$Value
+      return(paste("The CO2 concentration has changed by", round(100 * (422 - val) / val), "% since you were born"))
+    }
+  })
+
+  
+
   
   
   # Define the choices based on radio button selection
@@ -87,15 +101,16 @@ function(input, output, session) {
   })
   
   output$conc_plot <- renderPlot({
-    title_fragment <-ppm_data()$title_fragment
+    title_fragment <- ppm_data()$title_fragment
     df <- ppm_data()$data
     xlabel <- ppm_data()$xlabel
+    
     if (title_fragment == "from 1958-present") {
       df |>
         ggplot(aes(x = Numeric_date, y = Value)) +
         geom_line(color = "blue") +
-        geom_point(size = 0.5, color="blue") +
-        geom_smooth(aes(x = Numeric_date, y = Value), method = "loess", se = FALSE, color = "red")+
+        geom_point(size = 0.5, color = "blue") +
+        geom_smooth(aes(x = Numeric_date, y = Value), method = "loess", se = FALSE, color = "red") +
         labs(title = paste("Atmospheric CO2 concentrations", title_fragment),
              x = xlabel,
              y = "CO2 concentration (ppm)") +
@@ -103,18 +118,20 @@ function(input, output, session) {
         theme(axis.text.x = element_text(size = 12),   # Adjust the font size
               axis.text.y = element_text(size = 12))   # Adjust the font size
     } else {
-    df |>
-      ggplot(aes(x = Numeric_date, y = Value)) +
-      geom_line(color = "blue") +
-      geom_point(size = 0.5, color="blue") +
-      labs(title = paste("Atmospheric CO2 concentrations", title_fragment),
-           x = xlabel,
-           y = "CO2 concentration (ppm)") +
-      theme_classic()+
+      df |>
+        ggplot(aes(x = Numeric_date, y = Value)) +
+        geom_line(color = "blue") +
+        geom_point(size = 0.5, color = "blue") +
+        labs(title = paste("Atmospheric CO2 concentrations", title_fragment),
+             x = xlabel,
+             y = "CO2 concentration (ppm)") +
+        theme_classic() +
         theme(axis.text.x = element_text(size = 12),   # Adjust the font size
               axis.text.y = element_text(size = 12))   # Adjust the font size
     }
+  
   })
+  
   
   output$top_emitter_plot <- renderPlot({
     yr <- paste("F",as.character(input$year), sep="")

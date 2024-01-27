@@ -168,6 +168,22 @@ body <- dashboardBody(
                              plotOutput("top_emitter_plot")
                            )
                          )
+                ),
+                tabPanel("CO2 Game",
+                         fluidRow(
+                           column(6, textInput("yrInput", "Enter your year of birth")),
+                         ),
+                         fluidRow(
+                           column(12, 
+                                  box(
+                                    title = "CO2 Concentration Change",
+                                    status = "info",
+                                    solidHeader = TRUE,
+                                    textOutput("outputText"),
+                                    width="100%"
+                                  )
+                           )
+                         )
                 )
               )
             )),
